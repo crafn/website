@@ -1,6 +1,123 @@
+<!DOCTYPE html>
 <html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
+
+<script>
+	GSS_CONFIG = {
+		worker: "./gss/worker.js",
+		useWorker: !!window.Worker,
+
+		// Cassowary defaults
+		defaultStrength: 'weak', // 'weak', 'medium', 'strong', 'required'
+		defaultWeight: 0,
+
+		// FOUC prevention
+		// adds "gss-ready" and removes "gss-not-ready" classes on html tag
+		readyClass: true,
+
+		// Fractional pixels values
+		// bad for text, good for accuracy
+		fractionalPixels: true,
+
+		// Scrollbar size offset
+		verticalScroll: true,
+		horizontalScroll: false,
+
+		// Mutation Observer
+		observe: true,
+		observerOptions: {
+		subtree: true,
+		childList: true,
+		attributes: true,
+		characterData: true
+		},
+
+		// Callback to process variables before setting DOM
+		processBeforeSet: null, // function
+
+		// ::window resize debounce time
+		resizeDebounce: 32, // (ms)
+
+		// Logging
+		debug: true,
+		warn: true,
+		perf: false
+	};
+</script>
+<script src="./gss/gss.js"></script>
+
+<style type="text/gss">
+
+body {
+	background-color: #090909;
+	background: linear-gradient(to right, #070707, black, #070707);
+}
+
+.header {
+	center-y: ::window[center-y];
+	font-family: "Open Sans Condensed";
+	font-size: 40px;
+	letter-spacing: 0.02em;
+	color: #B0AA8A;
+	text-shadow: 0.0em 0.0em 0.4em #424242;
+	height: == ::[intrinsic-height];
+	width: == ::[intrinsic-width];
+}
+
+.content {
+	color: #AAAAAA;
+}
+
+p {
+	height: == ::[intrinsic-height];
+	font-family: "Source Sans Pro";
+}
+
+h3 {
+	font-family: "Open Sans Condensed";
+	font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.05em;
+	color: #B0AA8A;
+}
+
+.header[left] == ::window[left] + 25;
+.header[top] == ::window[top] + 10;
+
+.content[width] == 900;
+.content[center-x] == ::window[center-x];
+.content[top] == .header[bottom];
+.content[bottom] == ::window[bottom];
+
+</style>
+
+</head>
 <body>
-<h3>Tuukan kotska sivut</h3>
-<p>moi</p>
+
+<div class="header">
+crafn.kapsi.fi/stuff
+</div>
+
+<div class="content">
+<h3>Otsikko</h3>
+<p>m ipsum dolor sit amet, vim partem doctus quaestio ad. Ne sea luptatum gubergren percipitur, vis ut munere ubique quodsi, eum timeam tamquam iuvaret ut. Mel ex equidem luptatum persequeris, dicant veniam melius in mea, his ei offendit erroribus. Pri et evertitur intellegebat vituperatoribus.</p>
+
+<p>Ei sea accusata sadipscing, posse doctus sadipscing nec ex. Vis cu sonet epicurei recusabo, porro tractatos constituam at cum, eam ceteros salutatus ad. Vix possit interesset in, pro elit commune atomorum no. Et usu maluisset deseruisse intellegebat.</p>
+
+<h3>Otsikko2</h3>
+<p>Alia case voluptua usu an. Vis dicit option expetendis ad, vero modus mnesarchum te eos. Vel ea atqui vivendum, te euripidis conclusionemque qui. Ea nec iuvaret recteque, no summo feugiat laoreet vix.</p>
+
+<p>Cu vel persius discere gubergren. Prima invidunt ei duo, ea ferri eripuit quo. Vidit primis torquatos vix an, cu vidit graece vel. His dolorum impedit id. Simul viris ei quo. Ius esse habeo repudiandae ea, ad sed labores adipisci intellegam.</p>
+
+</div>
+
 </body>
 </html>
