@@ -46,6 +46,9 @@
 	};
 </script>
 <script src="./gss/gss.js"></script>
+<script src="./jquery/jquery-2.1.1.min.js"></script>
+<script src="./content/cfg.js"></script>
+<script src="./site.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
@@ -109,8 +112,9 @@ body {
 	font-size: 12px;
 	color: rgb(100, 100, 100);
 	padding-bottom: 2px;
-	padding-left: 4px;
+	padding-right: 4px;
 	height: == ::[intrinsic-height];
+	width: == ::[intrinsic-width];
 }
 
 p {
@@ -131,23 +135,23 @@ h3 {
 
 // Layout
 
-.header[left] == ::window[left] + 25;
-.header[top] == ::window[top] + 10;
+.header[top] == ::window[top] + 15;
+.header[left] == ::window[left] + 10;
 
 .content[center-x] == ::window[center-x];
-.content[top] == .header[bottom];
+.content[top] == .header[bottom] + 10;
 
-.nav[top] == .content[top] + 72;
+.nav[top] == .content[top] + 69;
 .nav[left] - ::window[left] == .content[left] - .nav[right];
 
 .nav[left] >= ::window[left] !strong;
 .content[left] >= ::window[left] + .nav[width] !strong;
 .content[right] <= ::window[right] !strong;
 
+.footer[right] == .content[right] !strong;
 .footer[top] == .content[bottom] + 30;
 
 </style>
-
 </head>
 <body>
 
@@ -166,27 +170,16 @@ crafn.kapsi.fi/stuff
 
 <p>Cu vel persius discere gubergren. Prima invidunt ei duo, ea ferri eripuit quo. Vidit primis torquatos vix an, cu vidit graece vel. His dolorum impedit id. Simul viris ei quo. Ius esse habeo repudiandae ea, ad sed labores adipisci intellegam.</p>
 
-<h3>Perunat</h3>
-<p>m ipsum dolor sit amet, vim partem doctus quaestio ad. Ne sea luptatum gubergren percipitur, vis ut munere ubique quodsi, eum timeam tamquam iuvaret ut. Mel ex equidem luptatum persequeris, dicant veniam melius in mea, his ei offendit erroribus. Pri et evertitur intellegebat vituperatoribus.</p>
-
-<p>Ei sea accusata sadipscing, posse doctus sadipscing nec ex. Vis cu sonet epicurei recusabo, porro tractatos constituam at cum, eam ceteros salutatus ad. Vix possit interesset in, pro elit commune atomorum no. Et usu maluisset deseruisse intellegebat.</p>
-
 <h3>Otsikko2</h3>
 <p>Alia case voluptua usu an. Vis dicit option expetendis ad, vero modus mnesarchum te eos. Vel ea atqui vivendum, te euripidis conclusionemque qui. Ea nec iuvaret recteque, no summo feugiat laoreet vix.</p>
 
 <p>Cu vel persius discere gubergren. Prima invidunt ei duo, ea ferri eripuit quo. Vidit primis torquatos vix an, cu vidit graece vel. His dolorum impedit id. Simul viris ei quo. Ius esse habeo repudiandae ea, ad sed labores adipisci intellegam.</p>
-</div>
 
-<div class="nav">
-<a href="">games &nbsp||||</a></br>
-<a href="">programming &nbsp||||</a></br>
-<a href="">music &nbsp||||</a></br>
-<a href="">art &nbsp||||</a></br>
-<a href="">about &nbsp||||</a></br>
+<div class="nav" id="nav">
 </div>
 
 <div class="footer">
-copyright Tuukka Pensala 2014
+&copy; Tuukka Pensala 2014
 </div>
 
 </body>
