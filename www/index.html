@@ -59,7 +59,7 @@
 
 body {
 	background-color: #090909;
-	background: linear-gradient(to right, #090909, black, #090909);
+	background: linear-gradient(to right, #0B0B0B, black, #0B0B0B);
 	color: white;
 }
 
@@ -68,14 +68,14 @@ body {
 	font-family: "Open Sans Condensed";
 	font-size: 30px;
 	letter-spacing: 0.02em;
-	color: #C0BA9A;
+	color: #F0BEAA;
 	text-shadow: 0.0em 0.0em 0.4em #424242;
 	height: == ::[intrinsic-height];
 	width: == ::[intrinsic-width];
 }
 
 .content {
-	color: #776666;
+	color: #7B8173;
 	text-align: justify;
 }
 
@@ -84,7 +84,7 @@ body {
 	font-size: 14px;
 	letter-spacing: 0.15em;
 	text-align: right;
-	color: #B0AA8A;
+	color: #F0DABA;
 	text-shadow: 0.0em 0.0em 0.4em #424242;
 	height: == ::[intrinsic-height];
 	width: == ::[intrinsic-width] !strong;
@@ -115,7 +115,7 @@ h3 {
 	font-weight: 300;
 	letter-spacing: 0.07em;
 	margin-bottom: 0px;
-	color: #C0BA9A;
+	color: #F0BEAA;
 }
 
 .header[left] == ::window[left] + 25;
@@ -127,7 +127,8 @@ h3 {
 .content[bottom] == ::window[bottom];
 
 .nav[top] == .content[top] + 72;
-.nav[right] == .content[left] - 40;
+//.nav[right] == .content[left] - 40;
+.nav[left] - ::window[left] == .content[left] - .nav[right];
 
 .nav[left] >= ::window[left] !strong;
 .content[left] >= ::window[left] + .nav[width] !strong;
@@ -156,8 +157,10 @@ crafn.kapsi.fi/stuff
 </div>
 
 <div class="nav">
-<a href="">home &nbsp||||</a></br>
-<a href="">stuff &nbsp||||</a></br>
+<a href="">games &nbsp||||</a></br>
+<a href="">programming &nbsp||||</a></br>
+<a href="">music &nbsp||||</a></br>
+<a href="">art &nbsp||||</a></br>
 <a href="">about &nbsp||||</a></br>
 </div>
 
