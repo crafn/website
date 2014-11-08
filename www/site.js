@@ -1,3 +1,39 @@
+var getQueryVar= function(name)
+{
+	var q= window.location.search.substring(1);
+	var vars= q.split("&");
+	for (var i= 0; i < vars.length; ++i) {
+		var p= vars[i].split("=");
+		if (p[0] == name)
+			return p[1];
+	}
+	return undefined;
+}
+
+var changeContent= function(title, code)
+{
+	$("#content").hide();
+	$("#content").html(code);
+	$("#content").fadeIn();
+
+	$("#header").html("crafn.kapsi.fi/" + title);
+};
+
+var selectTag= function(tag)
+{
+	var entries= [];
+	for (var i= 0; i < g_entries.length; ++i) {
+		if ($.inArray(tag, g_entries[i].tags) != -1)
+			entries.push(g_entries[i]);
+	}
+
+	var code= "";
+	for (var i= 0; i < entries.length; ++i) {
+		code += "<h3>" + entries[i].title + "</h3>";
+	}
+	changeContent(tag, code);
+};
+
 var onSiteLoad= function()
 {
 	// Create list of tags
@@ -24,31 +60,16 @@ var onSiteLoad= function()
 
 	// Create navigation
 	for (var i= 0; i < tags.length; ++i) {
-		link_code= "<a href=\"\" onclick=\"tag('"
+		link_code= "<a href=\"\" onclick=\"selectTag('"
 			+ tags[i] + "'); return false;\">"
 			+ tags[i] + " &nbsp;||||</a></br>";
 		$("#nav").append(link_code);
 	}
+
+	// Default content
+	if (getQueryVar("tags") == undefined) {
+		selectTag("news");
+	}
 };
 window.onload= onSiteLoad;
 
-var changeContent= function(code)
-{
-	$("#content").html(code);
-};
-
-var tag= function(tag)
-{
-	var entries= [];
-	for (var i= 0; i < g_entries.length; ++i) {
-		if ($.inArray(tag, g_entries[i].tags) != -1)
-			entries.push(g_entries[i]);
-	}
-
-	var code= "<ul>";
-	for (var i= 0; i < entries.length; ++i) {
-		code += "<li>" + entries[i].title + "</li>";
-	}
-	code += "</ul>";
-	changeContent(code);
-};

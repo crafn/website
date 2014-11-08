@@ -1,5 +1,10 @@
 g_entries= [
 	{
+		"title": "Clover engine open sourced",
+		"tags": [ "news", "games", "code" ],
+		"path": ""
+	},
+	{
 		"title": "Project Clover",
 		"tags": [ "games" ],
 		"path": ""
