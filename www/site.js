@@ -2,8 +2,8 @@ var onSiteLoad= function()
 {
 	// Create list of tags
 	var tag_counts= {}
-	for (var i= 0; i < g_contentCfg.length; ++i) {
-		var entry= g_contentCfg[i];
+	for (var i= 0; i < g_entries.length; ++i) {
+		var entry= g_entries[i];
 		for (var k= 0; k < entry.tags.length; ++k) {
 			var tag= entry.tags[k];
 			var count= tag_counts[tag] || 0;
@@ -34,9 +34,21 @@ window.onload= onSiteLoad;
 
 var changeContent= function(code)
 {
+	$("#content").html(code);
 };
 
-var tag= function(str)
+var tag= function(tag)
 {
-	changeContent("<p>" + str + "</p>");
+	var entries= [];
+	for (var i= 0; i < g_entries.length; ++i) {
+		if ($.inArray(tag, g_entries[i].tags) != -1)
+			entries.push(g_entries[i]);
+	}
+
+	var code= "<ul>";
+	for (var i= 0; i < entries.length; ++i) {
+		code += "<li>" + entries[i].title + "</li>";
+	}
+	code += "</ul>";
+	changeContent(code);
 };

@@ -47,7 +47,7 @@
 </script>
 <script src="./gss/gss.js"></script>
 <script src="./jquery/jquery-2.1.1.min.js"></script>
-<script src="./content/cfg.js"></script>
+<script src="./content/entries.js"></script>
 <script src="./site.js"></script>
 
 <link href='http://fonts.googleapis.com/css?family=Coda' rel='stylesheet' type='text/css'>
@@ -66,7 +66,7 @@ body {
 	color: white;
 }
 
-.header {
+#header {
 	center-y: ::window[center-y];
 	font-family: "Open Sans Condensed";
 	font-size: 30px;
@@ -77,14 +77,14 @@ body {
 	width: == ::[intrinsic-width];
 }
 
-.content {
+#content {
 	color: #7B8173;
 	text-align: justify;
 	height: == ::[intrinsic-height];
 	width: == 900 !strong;
 }
 
-.nav {
+#nav {
 	font-family: "Cinzel Decorative";
 	font-size: 14px;
 	letter-spacing: 0.15em;
@@ -107,7 +107,7 @@ body {
 	width: == ::[intrinsic-width] !strong;
 }
 
-.footer {
+#footer {
 	font-family: "Open Sans Condensed";
 	font-size: 12px;
 	color: rgb(100, 100, 100);
@@ -135,31 +135,31 @@ h3 {
 
 // Layout
 
-.header[top] == ::window[top] + 15;
-.header[left] == ::window[left] + 10;
+#header[top] == ::window[top] + 15;
+#header[left] == ::window[left] + 10;
 
-.content[center-x] == ::window[center-x];
-.content[top] == .header[bottom] + 10;
+#content[center-x] == ::window[center-x];
+#content[top] == #header[bottom] + 10;
 
-.nav[top] == .content[top] + 69;
-.nav[left] - ::window[left] == .content[left] - .nav[right];
+#nav[top] == #content[top] + 69;
+#nav[left] - ::window[left] == #content[left] - #nav[right];
 
-.nav[left] >= ::window[left] !strong;
-.content[left] >= ::window[left] + .nav[width] !strong;
-.content[right] <= ::window[right] !strong;
+#nav[left] >= ::window[left] !strong;
+#content[left] >= ::window[left] + #nav[width] !strong;
+#content[right] <= ::window[right] !strong;
 
-.footer[right] == .content[right] !strong;
-.footer[top] == .content[bottom] + 30;
+#footer[right] == #content[right] !strong;
+#footer[top] == #content[bottom] + 30;
 
 </style>
 </head>
 <body>
 
-<div class="header">
+<div id="header">
 crafn.kapsi.fi/stuff
 </div>
 
-<div class="content">
+<div id="content">
 <h3>Perunat</h3>
 <p>m ipsum dolor sit amet, vim partem doctus quaestio ad. Ne sea luptatum gubergren percipitur, vis ut munere ubique quodsi, eum timeam tamquam iuvaret ut. Mel ex equidem luptatum persequeris, dicant veniam melius in mea, his ei offendit erroribus. Pri et evertitur intellegebat vituperatoribus.</p>
 
@@ -174,11 +174,12 @@ crafn.kapsi.fi/stuff
 <p>Alia case voluptua usu an. Vis dicit option expetendis ad, vero modus mnesarchum te eos. Vel ea atqui vivendum, te euripidis conclusionemque qui. Ea nec iuvaret recteque, no summo feugiat laoreet vix.</p>
 
 <p>Cu vel persius discere gubergren. Prima invidunt ei duo, ea ferri eripuit quo. Vidit primis torquatos vix an, cu vidit graece vel. His dolorum impedit id. Simul viris ei quo. Ius esse habeo repudiandae ea, ad sed labores adipisci intellegam.</p>
-
-<div class="nav" id="nav">
 </div>
 
-<div class="footer">
+<div id="nav">
+</div>
+
+<div id="footer">
 &copy; Tuukka Pensala 2014
 </div>
 

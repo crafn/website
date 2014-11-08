@@ -1,4 +1,19 @@
-g_contentCfg= [
+g_entries= [
+	{
+		"title": "Project Clover",
+		"tags": [ "games" ],
+		"path": ""
+	},
+	{
+		"title": "Splot",
+		"tags": [ "games", "code" ],
+		"path": ""
+	},
+	{
+		"title": "Clover engine",
+		"tags": [ "code" ],
+		"path": ""
+	},
 	{
 		"title": "Jazz2 levels",
 		"tags": [ "games" ],
