@@ -30,12 +30,25 @@ var selectTag= function(tag)
 	var code= "";
 	for (var i= 0; i < entries.length; ++i) {
 		code += "<h3>" + entries[i].title + "</h3>";
+		var text_id= "entry_text" + i;
+		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
+		console.log("asking for " + entries[i].path);
+		$.get(entries[i].path, function(d) {
+			$("#" + text_id).html(marked(d));
+		});
 	}
 	changeContent(tag, code);
 };
 
 var onSiteLoad= function()
 {
+	$.ajaxSetup({beforeSend: function(xhr){
+		if (xhr.overrideMimeType){
+			xhr.overrideMimeType("text/plain");
+		}
+	}
+	});
+
 	// Create list of tags
 	var tag_counts= {}
 	for (var i= 0; i < g_entries.length; ++i) {

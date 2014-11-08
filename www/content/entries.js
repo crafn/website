@@ -1,23 +1,23 @@
 g_entries= [
 	{
 		"title": "Clover engine open sourced",
-		"tags": [ "news", "games", "code" ],
-		"path": ""
+		"tags": [ "news" ],
+		"path": "a"
 	},
 	{
 		"title": "Project Clover",
 		"tags": [ "games" ],
-		"path": ""
+		"path": "a"
 	},
 	{
 		"title": "Splot",
 		"tags": [ "games", "code" ],
-		"path": ""
+		"path": "a"
 	},
 	{
 		"title": "Clover engine",
 		"tags": [ "code" ],
-		"path": ""
+		"path": "a"
 	},
 	{
 		"title": "Jazz2 levels",
