@@ -32,9 +32,12 @@ var selectTag= function(tag)
 		code += "<h3>" + entries[i].title + "</h3>";
 		var text_id= "entry_text" + i;
 		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
-		console.log("asking for " + entries[i].path);
-		$.get(entries[i].path, function(d) {
-			$("#" + text_id).html(marked(d));
+		$.get(entries[i].path, function(md) {
+			var max= 300;
+			portion= md.substring(0, max);
+			if (md.length >= max)
+				portion += "...";
+			$("#" + text_id).html(marked(portion));
 		});
 	}
 	changeContent(tag, code);
