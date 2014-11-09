@@ -1,7 +1,7 @@
 g_entries= [
 	{
 		"file": "this_website.md",
-		"tags": [ "code" ]
+		"tags": [ "code" ]
 	},
 	{
 		"file" : "website_progress.md",
@@ -25,7 +25,7 @@ g_entries= [
 	},
 	{
 		"file": "jazz2_levels.md",
-		"tags": [ "games" ]
+		"tags": [ "games" ]
 	},
 	{
 		"file": "14_assembly_entry.md",

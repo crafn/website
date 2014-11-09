@@ -1,8 +1,3 @@
-//var headingFilter= function(str)
-//{
-//	return str.toLowerCase().replace(/ |'/g, "_");
-//};
-
 var getQueryVar= function(name)
 {
 	var q= window.location.search.substring(1);
