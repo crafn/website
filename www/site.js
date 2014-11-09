@@ -154,9 +154,10 @@ var onSiteLoad= function()
 		tags.push(sortable_tags[sortable_tags.length - i - 1][1]);
 	}
 
-	// Fill g_entriesByTitle
+	// Cache useful stuff
 	for (var i= 0; i < g_entries.length; ++i) {
 		var e= g_entries[i];
+		e.title= e.file.split(".")[0];
 		g_entriesByTitle[e.title]= e;
 	}
 

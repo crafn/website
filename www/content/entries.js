@@ -1,47 +1,38 @@
 g_entries= [
 	{
-		"title": "this_website",
-		"tags": [ "code" ],
-		"file": "this_website.md"
+		"file": "this_website.md",
+		"tags": [ "code" ]
 	},
 	{
-		"title": "website_progress",
-		"tags": [ "news" ],
-		"file" : "website_progress.md"
+		"file" : "website_progress.md",
+		"tags": [ "news" ]
 	},
 	{
-		"title": "clover_engine_open_sourced",
-		"tags": [ "news" ],
-		"file": "clover_opensourced.md"
+		"file": "clover_engine_open_sourced.md",
+		"tags": [ "news" ]
 	},
 	{
-		"title": "project_clover",
-		"tags": [ "games" ],
-		"file": "project_clover.md"
+		"file": "project_clover.md",
+		"tags": [ "games" ]
 	},
 	{
-		"title": "splot",
-		"tags": [ "games" ],
-		"file": "a"
+		"file": "splot.md",
+		"tags": [ "games" ]
 	},
 	{
-		"title": "clover_engine",
-		"tags": [ "code" ],
-		"file": "a"
+		"file": "clover_engine.md",
+		"tags": [ "code" ]
 	},
 	{
-		"title": "jazz2_levels",
-		"tags": [ "games" ],
-		"file": "jazz2.md"
+		"file": "jazz2_levels.md",
+		"tags": [ "games" ]
 	},
 	{
-		"title": "14_assembly_entry",
-		"tags": [ "music" ],
-		"file": "unqualified.md"
+		"file": "14_assembly_entry.md",
+		"tags": [ "music" ]
 	},
 	{
-		"title": "about",
-		"tags": [ "about" ],
-		"file": "about.md"
+		"file": "about.md",
+		"tags": [ "about" ]
 	}
 ]
