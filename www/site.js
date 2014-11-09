@@ -41,7 +41,7 @@ var changeContent= function(path, code, make_history)
 	heading_code= genPathLink(["news"], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
 		slashes= "//";
-		if (i == g_path.length + 1)
+		if (i == g_path.length - 1 && i >= 1)
 			slashes= "";
 		partial_path= g_path.slice(0, i + 1);
 		heading_code += genPathLink(partial_path, g_path[i] + slashes);
