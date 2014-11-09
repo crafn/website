@@ -30,7 +30,7 @@ var genPathLink= function(path, name)
 var g_path= [];
 var g_entriesByTitle= {};
 
-var changeContent= function(path, code, make_history= true)
+var changeContent= function(path, code, make_history)
 {
 	g_path= path;
 
