@@ -33,9 +33,8 @@ var changeContent= function(path, code, make_history= true)
 
 	url_path= "/?path=";
 	for (var i= 0; i < g_path.length; ++i) {
-		if (i != 0)
-			url_path += "/";
 		url_path += g_path[i];
+		url_path += "/";
 	}
 
 	if (make_history)
@@ -46,59 +45,62 @@ var changeContent= function(path, code, make_history= true)
 
 var selectTag= function(tag, make_history= true)
 {
-	var entries= [];
-	var entry_ids= [];
-	for (var i= 0; i < g_entries.length; ++i) {
-		if ($.inArray(tag, g_entries[i].tags) != -1) {
-			entries.push(g_entries[i]);
-			entry_ids.push(i);
-		}
-	}
-
-	// Entries to content
-	var code= "";
-	for (var i= 0; i < entries.length; ++i) {
-		code += "<a class=\"blocklink\"" +
-				"href=\"\"" +
-				"onclick=\"selectEntry('" + entries[i].title + "');" +
-				"return false;\">";
-		code += "<h3>" + entries[i].title + "</h3>";
-		var text_id= "entry_text" + i;
-		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
-
-		var path= "content/" + entries[i].file;
-		$.get(path, function (id) { return function(md) {
-			var max= 300;
-			portion= md.substring(0, max);
-			if (md.length >= max)
-				portion += "...";
-			$("#" + id).html(marked(portion));
-		}}(text_id));
-		code += "</a>";
-	}
-	changeContent([ tag ], code, make_history);
+	gotoPath([ tag ], make_history);
 };
 
 var selectEntry= function(title, make_history= true)
 {
-	var entry= g_entriesByTitle[title];
-	/// @todo Could be cached
-	$.get("content/" + entry.file, function(md) {
-		changeContent(
-			g_path.concat([ title ]),
-			marked(md),
-			make_history);
-	});
+	gotoPath(g_path.concat(title), make_history);
 };
 
 var gotoPath= function(path, make_history= true)
 {
 	if (path.length >= 2) {
-		selectEntry(path[1], make_history);
+		// Show entry
+		var title= path[1];
+		var entry= g_entriesByTitle[title];
+		/// @todo Could be cached
+		$.get("content/" + entry.file, function(md) {
+			changeContent(
+				path,
+				marked(md),
+				make_history);
+		});
 	} else if (path.length == 1) {
-		selectTag(path[0], make_history);
-	} else if (path.length == 0) {
-		selectTag("news", make_history);	
+		// Show entries matching to tags
+		var tag= path[0];
+
+		var entries= [];
+		var entry_ids= [];
+		for (var i= 0; i < g_entries.length; ++i) {
+			if ($.inArray(tag, g_entries[i].tags) != -1) {
+				entries.push(g_entries[i]);
+				entry_ids.push(i);
+			}
+		}
+
+		// Entries to content
+		var code= "";
+		for (var i= 0; i < entries.length; ++i) {
+			code += "<a class=\"blocklink\"" +
+					"href=\"\"" +
+					"onclick=\"selectEntry('" + entries[i].title + "');" +
+					"return false;\">";
+			code += "<h3>" + entries[i].title + "</h3>";
+			var text_id= "entry_text" + i;
+			code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
+
+			var get_path= "content/" + entries[i].file;
+			$.get(get_path, function (id) { return function(md) {
+				var max= 300;
+				portion= md.substring(0, max);
+				if (md.length >= max)
+					portion += "...";
+				$("#" + id).html(marked(portion));
+			}}(text_id));
+			code += "</a>";
+		}
+		changeContent(path, code, make_history);
 	}
 };
 
@@ -154,8 +156,14 @@ var onSiteLoad= function()
 	}
 
 	// Default content
-	if (getQueryVar("tags") == undefined) {
-		gotoPath([]);
+	var path_var= getQueryVar("path");
+	if (path_var== undefined) {
+		selectTag("news");
+	} else {
+		path= path_var.split("/");
+		if (path[path.length - 1].length == 0)
+			path.splice(path.length - 1, 1);
+		gotoPath(path);
 	}
 };
 window.onload= onSiteLoad;

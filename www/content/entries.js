@@ -1,5 +1,10 @@
 g_entries= [
 	{
+		"title": "website_progress",
+		"tags": [ "news" ],
+		"file" : "website_progress.md"
+	},
+	{
 		"title": "clover_engine_open_sourced",
 		"tags": [ "news" ],
 		"file": "clover_opensourced.md"
@@ -11,7 +16,7 @@ g_entries= [
 	},
 	{
 		"title": "splot",
-		"tags": [ "games", "code" ],
+		"tags": [ "games" ],
 		"file": "a"
 	},
 	{
