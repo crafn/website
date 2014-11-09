@@ -1,7 +1,7 @@
-var headerFilter= function(str)
-{
-	return str.toLowerCase().replace(/ |'/g, "_");
-};
+//var headingFilter= function(str)
+//{
+//	return str.toLowerCase().replace(/ |'/g, "_");
+//};
 
 var getQueryVar= function(name)
 {
@@ -17,24 +17,34 @@ var getQueryVar= function(name)
 
 // e.g. ["games", "some_entry"]
 var g_path= [];
+var g_entriesByTitle= {};
 
-var changeContent= function(title, code, append_title= false)
+var changeContent= function(path, code, make_history= true)
 {
 	$("#content").hide();
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	if (!append_title)
-		g_path= [];
-	g_path.push(title);
+	g_path= path;
 
-	new_title= "crafn.kapsi.fi/";
+	new_path_str= "crafn.kapsi.fi";
 	for (var i= 0; i < g_path.length; ++i)
-		new_title += "/" + g_path[i];
-	$("#header").html(new_title);
+		new_path_str += "//" + g_path[i];
+
+	url_path= "/?path=";
+	for (var i= 0; i < g_path.length; ++i) {
+		if (i != 0)
+			url_path += "/";
+		url_path += g_path[i];
+	}
+
+	if (make_history)
+		window.history.pushState({path: g_path}, "", url_path);
+
+	$("#header").html(new_path_str);
 };
 
-var selectTag= function(tag)
+var selectTag= function(tag, make_history= true)
 {
 	var entries= [];
 	var entry_ids= [];
@@ -50,12 +60,12 @@ var selectTag= function(tag)
 	for (var i= 0; i < entries.length; ++i) {
 		code += "<a class=\"blocklink\"" +
 				"href=\"\"" +
-				"onclick=\"selectEntry(" + entry_ids[i] + ");" +
+				"onclick=\"selectEntry('" + entries[i].title + "');" +
 				"return false;\">";
 		code += "<h3>" + entries[i].title + "</h3>";
 		var text_id= "entry_text" + i;
 		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
-		
+
 		var path= "content/" + entries[i].file;
 		$.get(path, function (id) { return function(md) {
 			var max= 300;
@@ -66,19 +76,30 @@ var selectTag= function(tag)
 		}}(text_id));
 		code += "</a>";
 	}
-	changeContent(tag, code);
+	changeContent([ tag ], code, make_history);
 };
 
-var selectEntry= function(entry_id)
+var selectEntry= function(title, make_history= true)
 {
-	var entry= g_entries[entry_id];
+	var entry= g_entriesByTitle[title];
 	/// @todo Could be cached
 	$.get("content/" + entry.file, function(md) {
 		changeContent(
-			headerFilter(entry.title),
+			g_path.concat([ title ]),
 			marked(md),
-			true);
+			make_history);
 	});
+};
+
+var gotoPath= function(path, make_history= true)
+{
+	if (path.length >= 2) {
+		selectEntry(path[1], make_history);
+	} else if (path.length == 1) {
+		selectTag(path[0], make_history);
+	} else if (path.length == 0) {
+		selectTag("news", make_history);	
+	}
 };
 
 var onSiteLoad= function()
@@ -89,6 +110,12 @@ var onSiteLoad= function()
 		}
 	}
 	});
+
+	// Back-button functionality
+	window.onpopstate = function(e){
+	    if(e.state)
+			gotoPath(e.state.path, false);
+	};
 
 	// Create list of tags
 	var tag_counts= {}
@@ -112,6 +139,12 @@ var onSiteLoad= function()
 		tags.push(sortable_tags[sortable_tags.length - i - 1][1]);
 	}
 
+	// Fill g_entriesByTitle
+	for (var i= 0; i < g_entries.length; ++i) {
+		var e= g_entries[i];
+		g_entriesByTitle[e.title]= e;
+	}
+
 	// Create navigation
 	for (var i= 0; i < tags.length; ++i) {
 		link_code= "<a href=\"\" onclick=\"selectTag('"
@@ -122,7 +155,7 @@ var onSiteLoad= function()
 
 	// Default content
 	if (getQueryVar("tags") == undefined) {
-		selectTag("news");
+		gotoPath([]);
 	}
 };
 window.onload= onSiteLoad;
