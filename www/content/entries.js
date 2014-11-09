@@ -2,36 +2,36 @@ g_entries= [
 	{
 		"title": "Clover engine open sourced",
 		"tags": [ "news" ],
-		"path": "content/clover_opensourced.md"
+		"file": "clover_opensourced.md"
 	},
 	{
 		"title": "Project Clover",
 		"tags": [ "games" ],
-		"path": "a"
+		"file": "project_clover.md"
 	},
 	{
 		"title": "Splot",
 		"tags": [ "games", "code" ],
-		"path": "a"
+		"file": "a"
 	},
 	{
 		"title": "Clover engine",
 		"tags": [ "code" ],
-		"path": "a"
+		"file": "a"
 	},
 	{
 		"title": "Jazz2 levels",
 		"tags": [ "games" ],
-		"path": "content/jazz2.md"
+		"file": "jazz2.md"
 	},
 	{
 		"title": "'14 Assembly entry",
 		"tags": [ "music" ],
-		"path": "content/unqualified.md"
+		"file": "unqualified.md"
 	},
 	{
 		"title": "About",
 		"tags": [ "about" ],
-		"path": "content/about.md"
+		"file": "about.md"
 	}
 ]

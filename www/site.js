@@ -1,3 +1,8 @@
+var headerFilter= function(str)
+{
+	return str.toLowerCase().replace(/ |'/g, "_");
+};
+
 var getQueryVar= function(name)
 {
 	var q= window.location.search.substring(1);
@@ -10,37 +15,65 @@ var getQueryVar= function(name)
 	return undefined;
 }
 
-var changeContent= function(title, code)
+var changeContent= function(title, code, append_title= false)
 {
 	$("#content").hide();
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	$("#header").html("crafn.kapsi.fi/" + title);
+	new_title= ""
+	if (append_title)
+		new_title= $("#header").text() + "/" + title;
+	else
+		new_title= "crafn.kapsi.fi/" + title;
+	$("#header").html(new_title);
 };
 
 var selectTag= function(tag)
 {
 	var entries= [];
+	var entry_ids= [];
 	for (var i= 0; i < g_entries.length; ++i) {
-		if ($.inArray(tag, g_entries[i].tags) != -1)
+		if ($.inArray(tag, g_entries[i].tags) != -1) {
 			entries.push(g_entries[i]);
+			entry_ids.push(i);
+		}
 	}
 
+	// Entries to content
 	var code= "";
 	for (var i= 0; i < entries.length; ++i) {
+		code += "<a class=\"blocklink\"" +
+				"href=\"\"" +
+				"onclick=\"selectEntry(" + entry_ids[i] + ");" +
+				"return false;\">";
 		code += "<h3>" + entries[i].title + "</h3>";
 		var text_id= "entry_text" + i;
 		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
-		$.get(entries[i].path, function(md) {
+		
+		var path= "content/" + entries[i].file;
+		$.get(path, function(md) {
 			var max= 300;
 			portion= md.substring(0, max);
 			if (md.length >= max)
 				portion += "...";
 			$("#" + text_id).html(marked(portion));
 		});
+		code += "</a>";
 	}
 	changeContent(tag, code);
+};
+
+var selectEntry= function(entry_id)
+{
+	var entry= g_entries[entry_id];
+	/// @todo Could be cached
+	$.get("content/" + entry.file, function(md) {
+		changeContent(
+			headerFilter(entry.title),
+			marked(md),
+			true);
+	});
 };
 
 var onSiteLoad= function()

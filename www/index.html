@@ -65,7 +65,7 @@ body {
 
 #header {
 	font-family: "Open Sans Condensed";
-	font-size: 30px;
+	font-size: 20px;
 	letter-spacing: 0.02em;
 	color: #F0BEAA;
 	text-shadow: 0.0em 0.0em 0.4em #424242;
@@ -92,6 +92,7 @@ body {
 	a {
 		color: #708860;
 		text-decoration: none;
+		outline: none;
 	}
 
 	a:hover {
@@ -133,34 +134,48 @@ h3 {
 /* Entry preview text */
 .preview {
 	h1,h2,h3,h4,h5,h6 {
-		display: none;
+		font-size: 12px;
+		text-decoration: none !important;
+		margin-top: 2px;
+		padding-left: 20px;
 	}
 	p {
 		font-style: italic;
 		margin-left: 10px;
 		padding-left: 8px;
 		border-left: 2px solid #443333;
-		margin-top: none;
+	}
+}
+
+.blocklink {
+	color: inherit;
+	text-decoration: inherit;
+	outline: none;
+}
+
+.blocklink:hover {
+	h1,h2,h3,h4,h5,h6 {
+		text-decoration: underline;
 	}
 }
 
 /* Layout */
 
-#header[top] == ::window[top] + 15;
-#header[left] == ::window[left] + 10;
+#header[top] == ::window[top] + 5;
+#header[left] == ::window[left] + 8;
 
-#content[center-x] == ::window[center-x];
+#content[center-x] == ::window[center-x] + 60;
 #content[top] == #header[bottom] + 10;
 
-#nav[top] == #content[top] + 69;
+#nav[top] == #content[top] + 40;
 #nav[left] - ::window[left] == #content[left] - #nav[right];
 
 #nav[left] >= ::window[left] !strong;
 #content[left] >= ::window[left] + #nav[width] !strong;
 #content[right] <= ::window[right] !strong;
 
-#footer[right] == #content[right] !strong;
-#footer[top] == #content[bottom] + 30;
+#footer[right] == ::window[right] !strong;
+#footer[bottom] == ::window[bottom] !strong;
 
 </style>
 </head>
