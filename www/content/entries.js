@@ -1,5 +1,10 @@
 g_entries= [
 	{
+		"title": "this_website",
+		"tags": [ "code" ],
+		"file": "this_website.md"
+	},
+	{
 		"title": "website_progress",
 		"tags": [ "news" ],
 		"file" : "website_progress.md"

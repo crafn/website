@@ -15,48 +15,63 @@ var getQueryVar= function(name)
 	return undefined;
 }
 
+var genPathLink= function(path, name)
+{
+	var arg= "[";
+	for (var i= 0; i < path.length; ++i) {
+		arg += "'" + path[i] + "',";
+	}
+	arg += "]";
+
+	code= 	"<a href=\"\" onclick=\"gotoPath(" +
+			arg +
+			", true); return false;\">" +
+			name +
+			"</a>";
+	return code;
+};
+
 // e.g. ["games", "some_entry"]
 var g_path= [];
 var g_entriesByTitle= {};
 
 var changeContent= function(path, code, make_history= true)
 {
+	g_path= path;
+
 	$("#content").hide();
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	g_path= path;
-
-	new_path_str= "crafn.kapsi.fi";
-	for (var i= 0; i < g_path.length; ++i)
-		new_path_str += "//" + g_path[i];
-
-	url_path= "/?path=";
+	heading_code= genPathLink(["news"], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
-		url_path += g_path[i];
-		url_path += "/";
+		slashes= "//";
+		if (i == g_path.length + 1)
+			slashes= "";
+		partial_path= g_path.slice(0, i + 1);
+		heading_code += genPathLink(partial_path, g_path[i] + slashes);
 	}
+	$("#header").html(heading_code);
 
-	if (make_history)
+	if (make_history) {
+		url_path= "/?path=";
+		for (var i= 0; i < g_path.length; ++i) {
+			url_path += g_path[i];
+			url_path += "/";
+		}
 		window.history.pushState({path: g_path}, "", url_path);
-
-	$("#header").html(new_path_str);
+	}
 };
 
-var selectTag= function(tag, make_history= true)
-{
-	gotoPath([ tag ], make_history);
-};
+var selectTag= function(tag)
+{ gotoPath([ tag ], true); };
 
-var selectEntry= function(title, make_history= true)
-{
-	gotoPath(g_path.concat(title), make_history);
-};
+var selectEntry= function(title)
+{ gotoPath(g_path.concat(title), true); };
 
-var gotoPath= function(path, make_history= true)
+var gotoPath= function(path, make_history)
 {
-	if (path.length >= 2) {
-		// Show entry
+	if (path.length >= 2) { // Show entry
 		var title= path[1];
 		var entry= g_entriesByTitle[title];
 		/// @todo Could be cached
@@ -66,10 +81,8 @@ var gotoPath= function(path, make_history= true)
 				marked(md),
 				make_history);
 		});
-	} else if (path.length == 1) {
-		// Show entries matching to tags
+	} else if (path.length == 1) { // Show entries matching to tags
 		var tag= path[0];
-
 		var entries= [];
 		var entry_ids= [];
 		for (var i= 0; i < g_entries.length; ++i) {
@@ -149,9 +162,7 @@ var onSiteLoad= function()
 
 	// Create navigation
 	for (var i= 0; i < tags.length; ++i) {
-		link_code= "<a href=\"\" onclick=\"selectTag('"
-			+ tags[i] + "'); return false;\">"
-			+ tags[i] + " &nbsp;||||</a></br>";
+		link_code= genPathLink([tags[i]], tags[i] + " &nbsp;||||") + "</br>";
 		$("#nav").append(link_code);
 	}
 
@@ -163,7 +174,7 @@ var onSiteLoad= function()
 		path= path_var.split("/");
 		if (path[path.length - 1].length == 0)
 			path.splice(path.length - 1, 1);
-		gotoPath(path);
+		gotoPath(path, true);
 	}
 };
 window.onload= onSiteLoad;
