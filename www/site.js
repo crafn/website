@@ -15,17 +15,22 @@ var getQueryVar= function(name)
 	return undefined;
 }
 
+// e.g. ["games", "some_entry"]
+var g_path= [];
+
 var changeContent= function(title, code, append_title= false)
 {
 	$("#content").hide();
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	new_title= ""
-	if (append_title)
-		new_title= $("#header").text() + "/" + title;
-	else
-		new_title= "crafn.kapsi.fi/" + title;
+	if (!append_title)
+		g_path= [];
+	g_path.push(title);
+
+	new_title= "crafn.kapsi.fi/";
+	for (var i= 0; i < g_path.length; ++i)
+		new_title += "/" + g_path[i];
 	$("#header").html(new_title);
 };
 
@@ -52,13 +57,13 @@ var selectTag= function(tag)
 		code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
 		
 		var path= "content/" + entries[i].file;
-		$.get(path, function(md) {
+		$.get(path, function (id) { return function(md) {
 			var max= 300;
 			portion= md.substring(0, max);
 			if (md.length >= max)
 				portion += "...";
-			$("#" + text_id).html(marked(portion));
-		});
+			$("#" + id).html(marked(portion));
+		}}(text_id));
 		code += "</a>";
 	}
 	changeContent(tag, code);
