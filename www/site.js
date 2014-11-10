@@ -56,6 +56,28 @@ var changeContent= function(path, code, make_history)
 		}
 		window.history.pushState({path: g_path}, "", url_path);
 	}
+
+	// Image functionality
+	var imgs= document.querySelectorAll('img');
+	var img_id= 0;
+	$("#content img").each(function()
+	{
+		var $img= $(this);
+		$img.tabIndex= 10000;
+		$img.attr("id", "image_" + img_id);
+		$img.attr("onMouseDown", "onThumbClick(event," + img_id + ");");
+		++img_id;
+	});
+};
+
+var onThumbClick= function(e, id)
+{
+	var $image= $("#image_" + id);
+	if (e.which == 1) { // lmb
+		$image.toggleClass("magnify");
+	} else if (e.which == 2) { // mmb
+		window.open($image.attr("src"), "_blank");
+	}
 };
 
 var selectTag= function(tag)
@@ -100,10 +122,18 @@ var gotoPath= function(path, make_history)
 
 			var get_path= "content/" + entries[i].file;
 			$.get(get_path, function (id) { return function(md) {
-				var max= 300;
+				var max= 250;
 				portion= md.substring(0, max);
+				for (var k= 0; k < portion.length; ++k) {
+					if (portion[k] == "\n" && portion[k + 1] == "\n") {
+						portion= md.substring(0, k);
+						break;
+					}
+				}
+
 				if (md.length >= max)
 					portion += "...";
+
 				$("#" + id).html(marked(portion));
 			}}(text_id));
 			code += "</a>";
@@ -174,4 +204,3 @@ var onSiteLoad= function()
 	}
 };
 window.onload= onSiteLoad;
-
