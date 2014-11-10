@@ -2,3 +2,6 @@
 *~
 *.swp
 *.swa
+
+# Data files
+www/data
