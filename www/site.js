@@ -10,7 +10,17 @@ var getQueryVar= function(name)
 	return undefined;
 }
 
-var genPathLink= function(path, name)
+var urlPath= function(path)
+{
+	var url_path= "/?path=";
+	for (var i= 0; i < path.length; ++i) {
+		url_path += path[i];
+		url_path += "/";
+	}
+	return url_path;
+};
+
+var pathLink= function(path, name)
 {
 	var arg= "[";
 	for (var i= 0; i < path.length; ++i) {
@@ -18,7 +28,9 @@ var genPathLink= function(path, name)
 	}
 	arg += "]";
 
-	code= 	"<a href=\"\" onclick=\"gotoPath(" +
+	code= 	"<a href=\"" +
+			urlPath(path) +
+			"\" onclick=\"gotoPath(" +
 			arg +
 			", true); return false;\">" +
 			name +
@@ -38,23 +50,18 @@ var changeContent= function(path, code, make_history)
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	heading_code= genPathLink(["news"], "crafn.kapsi.fi//");
+	heading_code= pathLink(["news"], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
 		slashes= "//";
 		if (i == g_path.length - 1 && i >= 1)
 			slashes= "";
 		partial_path= g_path.slice(0, i + 1);
-		heading_code += genPathLink(partial_path, g_path[i] + slashes);
+		heading_code += pathLink(partial_path, g_path[i] + slashes);
 	}
 	$("#header").html(heading_code);
 
 	if (make_history) {
-		url_path= "/?path=";
-		for (var i= 0; i < g_path.length; ++i) {
-			url_path += g_path[i];
-			url_path += "/";
-		}
-		window.history.pushState({path: g_path}, "", url_path);
+		window.history.pushState({path: g_path}, "", urlPath(g_path));
 	}
 
 	// Image functionality
@@ -188,7 +195,7 @@ var onSiteLoad= function()
 
 	// Create navigation
 	for (var i= 0; i < tags.length; ++i) {
-		link_code= genPathLink([tags[i]], tags[i] + " &nbsp;||||") + "</br>";
+		link_code= pathLink([tags[i]], tags[i] + " &nbsp;||||") + "</br>";
 		$("#nav").append(link_code);
 	}
 
