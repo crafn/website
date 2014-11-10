@@ -3,3 +3,5 @@ They'll be here soon.
 
 ![](./content/jcs.png)
 
+![](./content/jcs.png)
+
