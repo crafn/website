@@ -210,7 +210,7 @@ var onSiteLoad= function()
 
 	// Create navigation
 	for (var i= 0; i < tags.length; ++i) {
-		link_code= pathLink([tags[i]], tags[i] + " &nbsp;||||") + "</br>";
+		link_code= pathLink([tags[i]], tags[i]) + "</br>";
 		$("#nav").append(link_code);
 	}
 
