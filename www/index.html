@@ -87,7 +87,6 @@ body {
 }
 
 #content {
-	color: #A9A295;
 	text-align: justify;
 	height: == ::[intrinsic-height];
 	width: == 600 !strong;
@@ -154,9 +153,19 @@ body {
 p {
 	height: == ::[intrinsic-height];
 	font-family: "Lora";
-	font-size: 11pt;
+	font-size: 12pt;
+	line-height: 15pt;
 	margin-top: 5px;
 	margin-left: 10px;
+	color: #A9A295;
+}
+
+a:link {
+	color: #994444;
+}
+
+a:visited {
+	color: #774466;
 }
 
 h3 {
@@ -190,6 +199,7 @@ h4 {
 		display: none;
 	}
 	p {
+		color: #A9A295;
 		font-style: italic;
 		margin-top: 8px;
 		margin-left: 10px;
@@ -240,13 +250,13 @@ img[alt=right] {
 #header[top] == ::window[top] + 5;
 #header[left] == ::window[left] + 8;
 
-#content[center-x] == ::window[center-x] + 40;
+#content[center-x] == ::window[center-x] + 48;
 #content[top] == #header[bottom] + 40;
 
 #nav[top] == #content[top] + 80;
 #nav[right] + 35 == #content[left];
-
 #nav[left] >= ::window[left] !strong;
+
 #content[left] >= ::window[left] + #nav[width] !strong;
 #content[right] <= ::window[right] !strong;
 
