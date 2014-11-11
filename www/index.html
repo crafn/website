@@ -58,10 +58,12 @@
 <style type="text/gss">
 
 body {
-	background-color: #050505;
+	background-color: black;
 	background-image: url("grad.png");
 	background-size: 100% 100%;
-	z-index: -1;
+	height: 64px;
+	margin: 0;
+	padding: 0;
 }
 
 #header {
@@ -183,12 +185,21 @@ h3 {
 /* Thumbnail by default */
 #content img {
 	cursor: pointer;
-	width: 400px;
+	width: 220px;
+	margin: 5px;
 	transition: 0.1s ease;
 }
 
 .magnify {
-	transform: scale(2);
+	transform: scale(2.5);
+}
+
+img[alt=left] {
+	float: left;
+}
+
+img[alt=right] {
+	float: right;
 }
 
 
@@ -207,8 +218,8 @@ h3 {
 #content[left] >= ::window[left] + #nav[width] !strong;
 #content[right] <= ::window[right] !strong;
 
-#footer[right] == ::window[right] !strong;
-#footer[bottom] == ::window[bottom] !strong;
+#footer[right] == ::window[right];
+#footer[bottom] == ::window[bottom] !required;
 
 </style>
 </head>
