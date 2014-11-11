@@ -32,7 +32,7 @@ g_entries= [
 		"tags": [ "music" ]
 	},
 	{
-		"file": "about.md",
+		"file": "contact.md",
 		"tags": [ "about" ]
 	}
 ]
