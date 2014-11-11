@@ -143,6 +143,12 @@ body {
 	height: == ::[intrinsic-height];
 	width: == ::[intrinsic-width];
 	z-index: 0;
+	position: absolute;
+
+	/* Footer position done in plain css because gss is buggy */
+	bottom: 0;
+	right: 0;
+	position: fixed;
 }
 
 p {
@@ -168,7 +174,7 @@ h4 {
 	font-size: 20px;
 	font-weight: 300;
 	letter-spacing: 0.07em;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 	margin-top: 0px;
 }
 
@@ -244,16 +250,13 @@ img[alt=right] {
 #content[left] >= ::window[left] + #nav[width] !strong;
 #content[right] <= ::window[right] !strong;
 
-#footer[right] == ::window[right];
-#footer[bottom] == ::window[bottom] !required;
-
 </style>
 </head>
 <body>
 
 <div id="header"></div>
-<div id="content"></div>
 <div id="nav"></div>
+<div id="content"></div>
 <div id="footer">&copy; Tuukka Pensala 2014</div>
 
 </body>
