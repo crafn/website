@@ -2,6 +2,8 @@
 *~
 *.swp
 *.swa
+*.swo
+*.fuse_hidden*
 
 # Data files
 www/data

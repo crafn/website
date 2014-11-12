@@ -152,7 +152,7 @@ var gotoPath= function(path, make_history)
 
 			var get_path= "content/" + entries[i].file;
 			$.get(get_path, function (id) { return function(md) {
-				var max= 280;
+				var max= 400;
 				portion= md.substring(0, max);
 				for (var k= 0; k < portion.length; ++k) {
 					if (portion[k] == "\n" && portion[k + 1] == "\n") {
@@ -161,7 +161,7 @@ var gotoPath= function(path, make_history)
 					}
 				}
 
-				if (md.length >= max)
+				if (md.length >= portion.length)
 					portion += "...";
 
 				$("#" + id).html(marked(portion));
