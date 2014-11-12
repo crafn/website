@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -av --exclude "*~" --exclude "*.swp" --exclude "*.swa" ./www/ crafn@kapsi.fi:~/sites/crafn.kapsi.fi/www/
+rsync -av --exclude "*~" --exclude "*.swp" --exclude "*.swa" --exclude "*.fuse*" ./www/ crafn@kapsi.fi:~/sites/crafn.kapsi.fi/www/
