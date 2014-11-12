@@ -86,6 +86,14 @@ body {
 	}
 }
 
+#date {
+	font-family: "Open Sans Condensed";
+	font-size: 14px;
+	color: #B27F81;
+	height: == ::[intrinsic-height];
+	width: == ::[intrinsic-width];
+}
+
 #content {
 	text-align: justify;
 	height: == ::[intrinsic-height];
@@ -118,20 +126,6 @@ body {
 	height: == ::[intrinsic-height];
 	width: == ::[intrinsic-width] !strong;
 }
-
-/*
-#nav:before, #nav:after {
-	content: "";
-	height: 1px;
-	background: linear-gradient(to right,
-			rgba(0,0,0,0),
-			rgba(147,147,147,0.5),
-			rgba(0,0,0,0));
-	display: block;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-*/
 
 #footer {
 	font-family: "Open Sans Condensed";
@@ -251,8 +245,11 @@ img[alt=right] {
 #header[top] == ::window[top] + 5;
 #header[left] == ::window[left] + 8;
 
+#date[top] == #content[top] + 58;
+#date[right] == #content[right];
+
 #content[center-x] == ::window[center-x] + 48;
-#content[top] == #header[bottom] + 40;
+#content[top] == #header[bottom] + 45;
 
 #nav[top] == #content[top] + 80;
 #nav[right] + 35 == #content[left];
@@ -267,6 +264,7 @@ img[alt=right] {
 
 <div id="header"></div>
 <div id="nav"></div>
+<div id="date"></div>
 <div id="content"></div>
 <div id="footer">&copy; Tuukka Pensala 2014</div>
 

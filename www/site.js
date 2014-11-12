@@ -42,7 +42,7 @@ var pathLink= function(path, name)
 var g_path= [];
 var g_entriesByTitle= {};
 
-var changeContent= function(path, code, make_history)
+var changeContent= function(path, code, make_history, date)
 {
 	g_path= path;
 
@@ -63,6 +63,14 @@ var changeContent= function(path, code, make_history)
 	if (make_history) {
 		window.history.pushState({path: g_path}, "", urlPath(g_path));
 	}
+
+	$("#date").hide();
+	if (date) {
+		$("#date").html(date[0] + "-" + date[1] + "-" + date[2]);
+	} else {
+		$("#date").html("");
+	}
+	$("#date").fadeIn();
 
 	// Image functionality
 	var imgs= document.querySelectorAll('img');
@@ -113,12 +121,12 @@ var gotoPath= function(path, make_history)
 	if (path.length >= 2) { // Show entry
 		var title= path[1];
 		var entry= g_entriesByTitle[title];
-		/// @todo Could be cached
 		$.get("content/" + entry.file, function(md) {
 			changeContent(
 				path,
 				marked(md),
-				make_history);
+				make_history,
+				entry.date);
 		});
 	} else if (path.length == 1) { // Show entries matching to tags
 		var tag= path[0];
