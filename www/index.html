@@ -228,26 +228,30 @@ h4 {
 	right: 0px;
 }
 
-/* Thumbnail by default */
-#content img {
-	cursor: pointer;
-	width: 180px;
-	margin: 5px;
-	transition: 0.1s ease;
-}
-
 .magnify {
 	transform: scale(4);
 }
 
-img[alt=left] {
+/* Thumbnail by default */
+#content img {
+	cursor: pointer;
+	width: 180px;
+	transition: 0.1s ease;
+}
+
+#content img {
+	margin: 5px;
+}
+
+#content img[alt=left] {
 	float: left;
+	margin-right: 20px;
 }
 
-img[alt=right] {
+#content img[alt=right] {
 	float: right;
+	margin-left: 20px;
 }
-
 
 /* Layout */
 

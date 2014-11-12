@@ -7,17 +7,12 @@ g_entries= [
 	{
 		"date": [2014, 11, 12],
 		"file": "project_clover.md",
-		"tags": [ "games" ]
+		"tags": [ "games", "code" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "splot.md",
-		"tags": [ "games" ]
-	},
-	{
-		"date": [2014, 11, 12],
-		"file": "clover_engine.md",
-		"tags": [ "code" ]
+		"tags": [ "games", "code" ]
 	},
 	{
 		"date": [2014, 11, 12],

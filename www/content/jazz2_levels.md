@@ -1,6 +1,6 @@
 ### Jazz Jackrabbit 2 home cooked levels from 2002
 #### Forest
-This is the first complete level I've made for any game. By the time I started building this I was eight years old, and not knowing english very well I discovered most of the features of Jazz Creation Station by trial and error.
+This is the first complete level I've made for any game. By the time I started building this I was eight years old, and not knowing English very well I discovered most features of Jazz Creation Station by trial and error.
 
 After playing this after a decade or so I'm still quite happy with it, even though there are some filler parts where I couldn't think of anything interesting to put in. For some reason I had this thought that the whole rectangular area of a level should be used, so I often zoomed out to see where the biggest empty areas are and tried to invent something there.
 
