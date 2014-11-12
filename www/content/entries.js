@@ -31,6 +31,11 @@ g_entries= [
 	},
 	{
 		"date": [2014, 11, 12],
+		"file": "orchestral_experiment.md",
+		"tags": [ "music" ]
+	},
+	{
+		"date": [2014, 11, 12],
 		"file": "contact.md",
 		"tags": [ "about" ]
 	}
