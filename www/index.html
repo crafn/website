@@ -3,49 +3,6 @@
 <head>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
-<script>
-	GSS_CONFIG = {
-		worker: "./gss/worker.js",
-		useWorker: !!window.Worker,
-
-		// Cassowary defaults
-		defaultStrength: 'weak', // 'weak', 'medium', 'strong', 'required'
-		defaultWeight: 0,
-
-		// FOUC prevention
-		// adds "gss-ready" and removes "gss-not-ready" classes on html tag
-		readyClass: true,
-
-		// Fractional pixels values
-		// bad for text, good for accuracy
-		fractionalPixels: true,
-
-		// Scrollbar size offset
-		verticalScroll: true,
-		horizontalScroll: false,
-
-		// Mutation Observer
-		observe: true,
-		observerOptions: {
-		subtree: true,
-		childList: true,
-		attributes: true,
-		characterData: true
-		},
-
-		// Callback to process variables before setting DOM
-		processBeforeSet: null, // function
-
-		// ::window resize debounce time
-		resizeDebounce: 5, // (ms)
-
-		// Logging
-		debug: false,
-		warn: false,
-		perf: false
-	};
-</script>
-<script src="./gss/gss.js"></script>
 <script src="./jquery/jquery-2.1.1.min.js"></script>
 <script src="./marked/marked.js"></script>
 <script src="./content/entries.js"></script>
@@ -58,7 +15,7 @@
 <link href='http://fonts.googleapis.com/css?family=Cinzel+Decorative:700,400' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
 
-<style type="text/gss">
+<style type="text/css">
 
 body {
 	background-color: black;
@@ -78,22 +35,21 @@ body {
 	z-index: 0;
 
 	padding-left: 5px;
-
-	a {
-		color: inherit;
-		text-decoration: none;
-		outline: none;
-	}
-	a:hover {
-		color: white;
-	}
+}
+#header a {
+	color: inherit;
+	text-decoration: none;
+	outline: none;
+}
+#header a:hover {
+	color: white;
 }
 
-#content {
+#content {
 	text-align: justify;
 	z-index: 1;
 
-	width: 600px;
+	width: 600px !important;
 	position: relative;
 	float: right;
 	right: 68%;
@@ -119,17 +75,15 @@ body {
 	float: left;
 	left: 32%;
 	top: 130px;
-
-	a {
-		color: #96A885;
-		text-decoration: none;
-		outline: none;
-	}
-
-	a:hover {
-		color: white;
-		text-shadow: 0.0em 0.0em 0.4em #888888;
-	}
+}
+#nav a {
+	color: #96A885;
+	text-decoration: none;
+	outline: none;
+}
+#nav a:hover {
+	color: white;
+	text-shadow: 0.0em 0.0em 0.4em #888888;
 }
 
 #footer {
@@ -185,27 +139,25 @@ h4 {
 }
 
 /* Entry preview text */
-.preview {
-	h1,h2,h3 {
-		font-size: 15px;
-		text-decoration: none !important;
-		margin-top: 0px;
-		padding-left: 20px;
-	}
-	h4,h5,h6 {
-		display: none;
-	}
-	img {
-		display: none;
-	}
-	p {
-		color: #A9A295;
-		font-style: italic;
-		margin-top: 8px;
-		margin-left: 10px;
-		padding-left: 8px;
-		border-left: 1px solid #443333;
-	}
+.preview h3 {
+	font-size: 15px;
+	text-decoration: none !important;
+	margin-top: 0px;
+	padding-left: 20px;
+}
+.preview h4 {
+	display: none;
+}
+.preview img {
+	display: none;
+}
+.preview p {
+	color: #A9A295;
+	font-style: italic;
+	margin-top: 8px;
+	margin-left: 10px;
+	padding-left: 8px;
+	border-left: 1px solid #443333;
 }
 
 .blocklink {
@@ -215,18 +167,14 @@ h4 {
 	display: inline-block;
 	width: inherit;
 
-	h3 {
-		margin-bottom: 0px !important;
-	}
-
 	/* Needed for .date */
 	position: relative;
 }
-
-.blocklink:hover {
-	h1,h2,h3,h4,h5,h6 {
-		text-decoration: underline;
-	}
+.blocklink h3 {
+	margin-bottom: 0px !important;
+}
+.blocklink:hover h3 {
+	text-decoration: underline;
 }
 
 .date {
