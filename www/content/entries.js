@@ -1,16 +1,6 @@
 g_entries= [
 	{
 		"date": [2014, 11, 12],
-		"file": "this_website.md",
-		"tags": [ "code" ]
-	},
-	{
-		"date": [2014, 11, 12],
-		"file" : "website_progress.md",
-		"tags": [ "news" ]
-	},
-	{
-		"date": [2014, 11, 12],
 		"file": "clover_engine_open_sourced.md",
 		"tags": [ "news" ]
 	},
