@@ -67,6 +67,7 @@ body {
 	background-repeat: repeat-y;
 	margin: 0;
 	padding: 0;
+	overflow-y: scroll;
 }
 
 #header {
@@ -90,9 +91,16 @@ body {
 
 #content {
 	text-align: justify;
+	z-index: 1;
+
 	height: == ::[intrinsic-height];
 	width: == 600 !strong;
-	z-index: 1;
+	position: relative;
+	float: right;
+	right: 68%;
+	top: 50px;
+	margin-right: -600px;
+	padding-bottom: 100px;
 }
 
 #nav {
@@ -102,9 +110,16 @@ body {
 	text-align: right;
 	text-shadow: 0.0em 0.0em 0.4em #474747;
 	border-right: 1px solid #334433;
-	padding-right: 20px;
 	line-height: 30px;
 	z-index: 0;
+
+	width: 100px;
+	padding-right: 20px;
+	margin-left: -135px;
+	position: relative;
+	float: left;
+	left: 32%;
+	top: 130px;
 
 	a {
 		color: #96A885;
@@ -132,7 +147,6 @@ body {
 	z-index: 0;
 	position: absolute;
 
-	/* Footer position done in plain css because gss is buggy */
 	bottom: 0;
 	right: 0;
 	position: fixed;
@@ -227,7 +241,6 @@ h4 {
 	font-size: 14px;
 	color: #927F81;
 
-	/* Can't get gss to do the right thing. */
 	position: absolute;
 	top: 58px;
 	right: 0px;
@@ -263,23 +276,6 @@ iframe {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-
-/* Layout */
-
-#header[top] == ::window[top] + 5;
-#header[left] == ::window[left] + 8;
-
-#content[center-x] == ::window[center-x] + 40;
-#content[top] == #header[bottom] + 45;
-
-#nav[top] == #content[top] + 80;
-#nav[right] + 35 == #content[left];
-#nav[left] >= ::window[left] !strong;
-
-#content[left] >= ::window[left] + #nav[width] !strong;
-#content[right] <= ::window[right] !strong;
-
-body[height] == #content[height] + 200;
 
 </style>
 </head>
