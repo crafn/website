@@ -2,12 +2,17 @@ g_entries= [
 	{
 		"date": [2014, 11, 12],
 		"file": "clover_engine_open_sourced.md",
-		"tags": [ "news" ]
+		"tags": [ "news", "clover" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "project_clover.md",
-		"tags": [ "games", "code" ]
+		"tags": [ "games", "code", "clover" ]
+	},
+	{
+		"date": [2014, 11, 12],
+		"file": "clover_misc_art.md",
+		"tags": [ "clover", "art" ]
 	},
 	{
 		"date": [2014, 11, 12],
