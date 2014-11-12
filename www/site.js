@@ -38,11 +38,18 @@ var pathLink= function(path, name)
 	return code;
 };
 
+var dateDiv= function(date)
+{
+	return	"<div class=\"date\">" +
+			date[0] + "-" + date[1] + "-" + date[2] +
+			"</div>";
+};
+
 // e.g. ["games", "some_entry"]
 var g_path= [];
 var g_entriesByTitle= {};
 
-var changeContent= function(path, code, make_history, date)
+var changeContent= function(path, code, make_history)
 {
 	g_path= path;
 
@@ -63,14 +70,6 @@ var changeContent= function(path, code, make_history, date)
 	if (make_history) {
 		window.history.pushState({path: g_path}, "", urlPath(g_path));
 	}
-
-	$("#date").hide();
-	if (date) {
-		$("#date").html(date[0] + "-" + date[1] + "-" + date[2]);
-	} else {
-		$("#date").html("");
-	}
-	$("#date").fadeIn();
 
 	// Image functionality
 	var imgs= document.querySelectorAll('img');
@@ -121,12 +120,12 @@ var gotoPath= function(path, make_history)
 	if (path.length >= 2) { // Show entry
 		var title= path[1];
 		var entry= g_entriesByTitle[title];
+
 		$.get("content/" + entry.file, function(md) {
 			changeContent(
 				path,
-				marked(md),
-				make_history,
-				entry.date);
+				dateDiv(entry.date) + marked(md),
+				make_history);
 		});
 	} else if (path.length == 1) { // Show entries matching to tags
 		var tag= path[0];
@@ -147,6 +146,7 @@ var gotoPath= function(path, make_history)
 					"onclick=\"selectEntry('" + entries[i].title + "');" +
 					"return false;\">";
 			code += "<h3>" + entries[i].title + "</h3>";
+			code += dateDiv(entries[i].date);
 			var text_id= "entry_text" + i;
 			code += "<div class=\"preview\" id=\"" + text_id + "\"></div>";
 

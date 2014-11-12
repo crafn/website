@@ -70,7 +70,7 @@ body {
 	font-family: "Open Sans Condensed";
 	font-size: 20px;
 	letter-spacing: 0.02em;
-	color: #B27F81;
+	color: #927F81;
 	text-shadow: 0.0em 0.0em 0.4em #373737;
 	height: == ::[intrinsic-height];
 	width: == ::[intrinsic-width];
@@ -84,14 +84,6 @@ body {
 	a:hover {
 		color: white;
 	}
-}
-
-#date {
-	font-family: "Open Sans Condensed";
-	font-size: 14px;
-	color: #B27F81;
-	height: == ::[intrinsic-height];
-	width: == ::[intrinsic-width];
 }
 
 #content {
@@ -167,6 +159,7 @@ h3 {
 	font-size: 25px;
 	font-weight: 300;
 	letter-spacing: 0.07em;
+	margin-top: 25px;
 	margin-bottom: 25px;
 	color: #F2CFB1;
 	text-shadow: 0.0em 0.0em 0.4em #474747;
@@ -207,16 +200,32 @@ h4 {
 	color: inherit;
 	text-decoration: inherit;
 	outline: none;
+	display: inline-block;
+	width: inherit;
 
 	h3 {
 		margin-bottom: 0px !important;
 	}
+
+	/* Needed for .date */
+	position: relative;
 }
 
 .blocklink:hover {
 	h1,h2,h3,h4,h5,h6 {
 		text-decoration: underline;
 	}
+}
+
+.date {
+	font-family: "Open Sans Condensed";
+	font-size: 14px;
+	color: #927F81;
+
+	/* Can't get gss to do the right thing. */
+	position: absolute;
+	top: 58px;
+	right: 0px;
 }
 
 /* Thumbnail by default */
@@ -245,9 +254,6 @@ img[alt=right] {
 #header[top] == ::window[top] + 5;
 #header[left] == ::window[left] + 8;
 
-#date[top] == #content[top] + 58;
-#date[right] == #content[right];
-
 #content[center-x] == ::window[center-x] + 48;
 #content[top] == #header[bottom] + 45;
 
@@ -264,7 +270,6 @@ img[alt=right] {
 
 <div id="header"></div>
 <div id="nav"></div>
-<div id="date"></div>
 <div id="content"></div>
 <div id="footer">&copy; Tuukka Pensala 2014</div>
 
