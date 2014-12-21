@@ -1,4 +1,4 @@
 website
 =======
 
-My personal web site. Located [here](http://crafn.kapsi.fi/).
+My personal website. Located [here](http://crafn.kapsi.fi/).
