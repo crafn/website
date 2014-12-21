@@ -1,5 +1,10 @@
 g_entries= [
 	{
+		"date": [2014, 12, 20],
+		"file": "clover_engine_mistakes.md",
+		"tags": [ "news", "clover", "code" ]
+	},
+	{
 		"date": [2014, 11, 12],
 		"file": "clover_engine_open_sourced.md",
 		"tags": [ "news", "clover" ]
