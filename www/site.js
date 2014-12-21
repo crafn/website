@@ -57,15 +57,19 @@ var changeContent= function(path, code, make_history)
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	heading_code= pathLink(["news"], "crafn.kapsi.fi//");
+	var page_title= "crafn.kapsi.fi//";
+	var heading_code= pathLink(["news"], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
 		slashes= "//";
 		if (i == g_path.length - 1 && i >= 1)
 			slashes= "";
 		partial_path= g_path.slice(0, i + 1);
 		heading_code += pathLink(partial_path, g_path[i] + slashes);
+
+		page_title += g_path[i] + slashes;
 	}
 	$("#header").html(heading_code);
+	document.title= page_title;
 
 	if (make_history) {
 		window.history.pushState({path: g_path}, "", urlPath(g_path));
