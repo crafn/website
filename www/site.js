@@ -57,7 +57,7 @@ var changeContent= function(path, code, make_history)
 	$("#content").html(code);
 	$("#content").fadeIn();
 
-	var page_title= "crafn.kapsi.fi//";
+	var page_title= "crafn.kapsi.fi";
 	var heading_code= pathLink(["news"], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
 		slashes= "//";
@@ -66,7 +66,7 @@ var changeContent= function(path, code, make_history)
 		partial_path= g_path.slice(0, i + 1);
 		heading_code += pathLink(partial_path, g_path[i] + slashes);
 
-		page_title += g_path[i] + slashes;
+		page_title= g_path[i];
 	}
 	$("#header").html(heading_code);
 	document.title= page_title;
@@ -93,7 +93,7 @@ var onMouseDown_html= function(e)
 	// Demagnify every image
 	$("#content img").each(function()
 	{ $(this).attr("class", ""); });
-}
+};
 
 var onMouseDown_thumb= function(e, id)
 {

@@ -55,7 +55,7 @@ body {
 	right: 52%;
 	top: 50px;
 	margin-right: -355px;
-	padding-bottom: 100px;
+	padding-bottom: 50px;
 }
 #content p, li {
 	font-family: "Lora";
@@ -213,7 +213,7 @@ body {
 	text-shadow: 0.0em 0.0em 0.4em #888888;
 }
 
-#footer {
+#copyright {
 	font-family: "Open Sans Condensed";
 	font-size: 12px;
 	color: rgb(100, 100, 100);
@@ -226,6 +226,20 @@ body {
 	padding-right: 4px;
 }
 
+#twitter-follow {
+	position: absolute;
+	padding-top: 7px;
+	padding-right: 7px;
+	top: 0px;
+	right: 0px;
+}
+
+#twitter-share {
+	padding-top: 20px;
+	width: 70px;
+	float: right;
+}
+
 </style>
 </head>
 <body>
@@ -233,7 +247,12 @@ body {
 <div id="header"></div>
 <div id="nav"></div>
 <div id="content"></div>
-<div id="footer">&copy; Tuukka Pensala 2014</div>
+<div id="copyright">&copy; Tuukka Pensala 2014</div>
+
+<div id="twitter-follow">
+<a href="https://twitter.com/crafn" class="twitter-follow-button" data-show-count="false">Follow @crafn</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
 
 </body>
 </html>
