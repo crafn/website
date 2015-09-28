@@ -81,6 +81,6 @@ Now that my code compiles in a reasonable time (this paragraph is hypothetical),
 
 When I look back, it's quite clear that most of my problems with the engine could've been avoided by not introducing unnecessary complexity by C++ and OOP idioms, or by the standard library, but choosing the simplest possible solution available. This means using structs & functions instead of classes, custom-generated code instead of templates, and function pointers instead of the OOP/C++ way. It would've been far more future-proof and saved me from a lot of anxiety.
 
-All of this boils down to the fact that making changes to a simple system is a lot easier than to an already complex one. Machine, the ultimate platform can't be abstracted away in heavyweight game development, meaning that all of the fancy C++ abstractions and encapsulations often leak their implementation details to outer program. This increases the total complexity so much that someone rather writes a thing like this to procrastinate rather than actually go and figure out ways to make his code work.
+All of this boils down to the fact that making changes to a simple system is a lot easier than to an already complex one. Machine, the ultimate platform can't be abstracted away in heavyweight game development, meaning that all of the fancy C++ abstractions and encapsulations often leak their implementation details to outer program. This increases the total complexity so much that someone writes a thing like this to procrastinate rather than actually go and figure out ways to make his code work.
 
 

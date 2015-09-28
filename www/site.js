@@ -48,6 +48,7 @@ var dateDiv= function(date)
 // e.g. ["games", "some_entry"]
 var g_path= [];
 var g_entriesByTitle= {};
+var g_default_tag= "all";
 
 var changeContent= function(path, code, make_history)
 {
@@ -58,7 +59,7 @@ var changeContent= function(path, code, make_history)
 	$("#content").fadeIn();
 
 	var page_title= "crafn.kapsi.fi";
-	var heading_code= pathLink(["news"], "crafn.kapsi.fi//");
+	var heading_code= pathLink([g_default_tag], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
 		slashes= "//";
 		if (i == g_path.length - 1 && i >= 1)
@@ -66,7 +67,7 @@ var changeContent= function(path, code, make_history)
 		partial_path= g_path.slice(0, i + 1);
 		heading_code += pathLink(partial_path, g_path[i] + slashes);
 
-		page_title= g_path[i];
+		page_title += " - " + g_path[i];
 	}
 	$("#header").html(heading_code);
 	document.title= page_title;
@@ -205,12 +206,12 @@ var onSiteLoad= function()
 	var sortable_tags= [];
 	for (var key in tag_counts) {
 		if (tag_counts.hasOwnProperty(key))
-			sortable_tags.push([tag_counts[key], key]);
+			sortable_tags.push({count: tag_counts[key], name: key});
 	}
-	sortable_tags.sort();
+	sortable_tags.sort(function(a, b) { return b.count - a.count; });
 	var tags= []
 	for (var i= 0; i < sortable_tags.length; ++i) {
-		tags.push(sortable_tags[sortable_tags.length - i - 1][1]);
+		tags.push(sortable_tags[i].name);
 	}
 
 	// Cache useful stuff
@@ -229,7 +230,7 @@ var onSiteLoad= function()
 	// Default content
 	var path_var= getQueryVar("path");
 	if (path_var== undefined) {
-		selectTag("news");
+		selectTag(g_default_tag);
 	} else {
 		path= path_var.split("/");
 		if (path[path.length - 1].length == 0)
