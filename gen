@@ -1,0 +1,125 @@
+#!/usr/bin/python
+
+import json
+import markdown
+import re
+
+
+def remove_link_tags(text):
+    text = re.compile(r'<a[^>]+>').sub('', text)
+    text = re.compile(r'</a>').sub('', text)
+    return text
+
+def tag_cmp(a, b):
+    if a["count"] != b["count"]:
+	return a["count"] - b["count"]
+    return (a["name"] > b["name"]) - (b["name"] > a["name"])
+
+entries = {}
+with open("./content/entries.json") as entries_file:
+    entries = json.load(entries_file)
+
+tag_counts = {}
+for entry in entries:
+    for tag in entry["tags"]:
+        if tag not in tag_counts:
+            tag_counts.update({tag : 0})
+        else:
+            tag_counts[tag] += 1
+
+sortable_tags = [];
+for key in tag_counts:
+    if key in tag_counts:
+        sortable_tags.append({"count": tag_counts[key], "name": key});
+
+sortable_tags = sorted(sortable_tags, cmp = tag_cmp, reverse = True)
+
+tags = []
+for tag in sortable_tags:
+    tags.append(tag["name"]);
+
+entries_by_title = {}
+for e in entries:
+    e["title"] = e["file"].split(".")[0];
+    entries_by_title.update({e["title"] : e})
+
+nav_code = ""
+for tag in tags:
+    nav_code += '<a href="' + tag + '.html">' + tag + '</a></br>'; 
+
+# Tag pages
+for tag in tags:
+    html_file_name = tag + ".html"
+    with    open("./header.txt") as header, open("./footer.txt") as footer, \
+            open("./www/" + html_file_name, "w") as output:
+        page_title = "crafn.kapsi.fi - " + tag
+        heading_code = '<a href="/">' + "crafn.kapsi.fi//" + '</a>'
+        heading_code += '<a href="/' + html_file_name + '">' + tag + '</a>'
+
+        tag_entries = []
+        for e in entries:
+            found = False
+            for e_tag in e["tags"]:
+                if tag == e_tag:
+                    found = True
+                    break
+            if found:
+                tag_entries.append(e)
+
+        # Entry previews to content
+        content_code = "";
+        for e in tag_entries:
+            content_code += '<a class="blocklink"' + \
+                            'href="' + e["title"] + '.html">'
+            content_code += "<h3>" + e["title"] + "</h3>"
+            content_code += '<div class="date">' + \
+                            str(e["date"][0]) + "-" + str(e["date"][1]) + "-" + str(e["date"][2]) + \
+                            "</div>"
+            content_code += '<div class="preview">'
+
+            # Preview content
+            entry_content = open("./content/" + e["file"]).read()
+            portion = entry_content[0:400]
+            for k in range(0, len(portion) - 1):
+                if portion[k] == '\n' and portion[k + 1] == '\n':
+                    portion = portion[0:k]
+                    break;
+
+            if len(entry_content) >= len(portion):
+                portion += "..."
+
+            content_code += remove_link_tags(markdown.markdown(portion))
+            content_code += '</div>'
+            content_code += '</a>'
+
+        output.write(header.read())
+        output.write('<title>' + page_title + '</title>')
+        output.write('<div id="header">' + heading_code + '</div>')
+        output.write('<div id="nav">' + nav_code + '</div>')
+        output.write('<div id="content">' + content_code + '</div>')
+        output.write(footer.read())
+
+# Entry pages
+for e in entries:
+    html_file_name = e["title"] + ".html"
+    with    open("./header.txt") as header, open("./footer.txt") as footer, \
+            open("./www/" + html_file_name, "w") as output:
+        page_title = "crafn.kapsi.fi - " + e["title"]
+        heading_code = '<a href="/">' + "crafn.kapsi.fi//" + '</a>'
+        heading_code += '<a href="/' + html_file_name + '">' + e["title"] + '</a>'
+
+        # Entry to content
+        content_code = "";
+        content_code += '<div class="date">' + \
+                        str(e["date"][0]) + "-" + str(e["date"][1]) + "-" + str(e["date"][2]) + \
+                        "</div>"
+        entry_content = open("./content/" + e["file"]).read()
+        content_code += markdown.markdown(entry_content)
+
+        output.write(header.read())
+        output.write('<title>' + page_title + '</title>')
+        output.write('<div id="header">' + heading_code + '</div>')
+        output.write('<div id="nav">' + nav_code + '</div>')
+        output.write('<div id="content">' + content_code + '</div>')
+        output.write(footer.read())
+

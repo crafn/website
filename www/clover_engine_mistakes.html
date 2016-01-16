@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<script src="./jquery/jquery-2.1.1.min.js"></script>
+<script src="./site.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-56678279-1', 'auto'); ga('send', 'pageview');
+</script>
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Cinzel+Decorative:700,400' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+
+<link href='style.css' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+<title>crafn.kapsi.fi - clover_engine_mistakes</title><div id="header"><a href="/">crafn.kapsi.fi//</a><a href="/clover_engine_mistakes.html">clover_engine_mistakes</a></div><div id="nav"><a href="index.html">index</a></br><a href="code.html">code</a></br><a href="clover.html">clover</a></br><a href="music.html">music</a></br><a href="games.html">games</a></br><a href="physics.html">physics</a></br><a href="art.html">art</a></br><a href="about.html">about</a></br></div><div id="content"><div class="date">2014-12-21</div><h3>Absolution</h3>
+<p>There's a strong sense in the C++ and OOP community of what's the correct way to write programs. During the development of my first full-blown game engine I've come to realize that many of these best practices are self-serving and have no basis in the sense of making programming enjoyable, productive, or making the code efficient. Many of them are widely used because they provide a way to satisfy a certain, distorted, view of writing good code, but have no practical value. These practices also generate further problems which must be accounted with more elaborate "best practices".</p>
+<p>I'm struggling to get away from this mindset, as there appears to be better ways of programming.</p>
+<p>I'll now present the biggest false beliefs which have turned out to be harmful for my productivity, motivation, and for the performance of the currently unfinished Clover game engine.</p>
+<h4>Thinking in terms of objects makes programming simple</h4>
+<p>Object oriented programming had felt somewhat clumsy for me a long time, but I thought that the alternatives couldn't do any better. Being a self-taught programmer, university Java classes on software architecting really showed me how frustrating and inefficient writing and designing programs can be; spending twenty minutes drawing UML graphs with a group just to model a Monopoly game is something you shouldn't be doing if you want to get the job done. Just start typing the <code>MonopolyState</code> struct and see where the real problems occur.</p>
+<p>Drawing an analogy to physics, solving a problem using object oriented programming is like solving an equation using the Fourier transform; you take the original problem, then transform it to another thing in the problem-space, hoping it being easier to solve. Sometimes this is useful and leads to an elegant solution, but doing so with every problem you're facing would indicate that you're out of your mind. It's a shame this took me so long to realize.</p>
+<p>Note to self: Start by thinking a concrete solution to a specific problem. Objects might then arise, but usually not.</p>
+<h4>Exceptions make error handling simple</h4>
+<p>For a long time I thought that exceptions should be used for error handling because they're <em>the</em> C++ way of doing things. Then I spent considerable amount of time thinking about questions, like how I should draw the semantic lines separating my exception classes? How much context and other information they should convey to the catcher? How the inheritance hierarchy should be formed to match the usual catching patterns? What is an exceptional situation? Should I derive from <code>std::exception</code>, or some inherited class?...</p>
+<p>It is a problem which has an endless number of solutions, but not a single one stands out with clear benefits. I suspect that the attempt to unify the many ways of error handling in an already complex object oriented system was made under requirements so convoluted that only a really general solution could've worked. So general, that it lead to designing a global goto labeling scheme encoded in the type system. That's why I've never felt particularly good about using exceptions. It's just an overengineered solution to a problem which is so simple to be dealt at per function basis.</p>
+<p>What I would've needed was to</p>
+<pre><code>return ERR_FAIL;
+</code></pre>
+<p>which can be a bit more ugly, but the resulting code is a lot simpler. Constant mental overhead of thinking about exception safety, complicated program flow, rules of your own arbitrary exception semantics policy, and implementing RAII classes is a lot of headache for little benefit.</p>
+<p>Note to self: Don't throw; keep the program flow simple and debugging easy.</p>
+<h4>RAII is the way to handle initialization and destruction</h4>
+<p>The case often is that you have to create a new type which needs to have means of initialization and destruction.</p>
+<p>How I approached this using objects:
+1. Design a class which could encapsulate the required properties, following the Single Responsibility Principle and all that good stuff.
+2. Write a constructor and destructor doing all the important work.
+3. Write required accessors.
+4. These will be put into <code>std::vector</code> so write a move ctor, and a move assignment operator too.
+5. If copying is needed, just copy-paste move-funcs and remove <code>std::moves</code>.
+6. Realize that the move-constructor should be <code>noexcept</code> so that <code>std::containers</code> can use it to full extent(?) (jk, I rarely bother or remember to do this).
+7. Worry about the stuff inside move-functions if they really throw or not.
+8. Feel uneasy because didn't put enough thought to the <code>noexcept</code> specification, copy-and-swap idiom or something else.
+9. Later realize that a new member is needed. Update class definition, add required accessors and update copy and move funcs.
+10. Bonus: the new member doesn't support copy and/or move because I was lazy when I wrote that class.
+11. Debug odd behavior due to forgotten update of copy or move -functions.</p>
+<p>How I would approach this now:
+1. Write a struct containing the required data.
+2. Write create and destroy functions for the struct.
+3. Call these at the two places where the new functionality is needed.
+4. Later realize that a new member is needed, and then add it.</p>
+<p>Note to self: Use RAII only for widely used utility classes.</p>
+<h4>Template metaprogramming saves programmer time</h4>
+<p>I'm still quite proud of the script registration system I managed to pull together. Too bad that C++ template implementation totally ruined it.</p>
+<p>It works so that you can pass arbitrary (member)function pointer, or type to a script manager, and it uses template magic to figure out all the properties of the passed thing and forms a proper registration call to AngelScript. There's a few minor problems though which I didn't come to think about beforehand:
+1. Generating thousands and thousands of template instantiations takes so much memory that workarounds must be used to keep 32bit MinGW from crashing and 8gb of ram being filled on my 64bit Linux laptop when building with <code>-j8</code>.
+2. Symbol table gets so bloated that 32bit linker will fail on debug builds.
+3. Compile times get slower by minutes. Slow compile times destroy programmer motivation.
+4. Fixing bugs in the script manager is annoying because generated template errors are so long that I've had to double the buffer size of bash multiple times.
+5. Fixing bugs in the script manager is hopeless because recompilation takes multiple minutes.</p>
+<p>Note to self: Use templates only to parameterize over types, if really necessary. Generate glue code with some external tool if e.g. a scripting language must be used.</p>
+<h4>Use e.g. Boost instead of rolling your own</h4>
+<p>Boost is one of the most unportable libraries I've ever used. I've wasted countless hours trying to find a MinGW build which could compile Boost without errors. Every time I wanted to use a new and cool C++11 feature and updated my compiler, I could be sure that Boost wouldn't compile anymore on Windows. MinGW might also be to blame, but every other library has been working quite fine. Fortunately <code>std::thread</code> and friends are now somewhat usable on MinGW so parts of Boost can be removed from the build, which is better than nothing.</p>
+<p>Note to self: Write your own minimal utilities on top of the OS API, which takes less time than the constant struggle with Boost or some other bloated general purpose library, and the result also compiles faster.</p>
+<h4>Write standard-compliant code and you're good to go</h4>
+<p>Compilers are broken, buggy, and Microsoft is slow to implement new C++ features. I really hope that I wouldn't have used some of the C++11 features (like constexpr) because now the only practical possibility on Windows is to use MinGW, which has been a great source of pain, suffering, and waste of time. Hopefully Visual Studio 2015 will change this. It probably won't.</p>
+<p>Note to self: Always make sure that there's plan B in case something goes wrong with the cool features no-one uses or supports properly.</p>
+<h4>Using a script language makes the iteration cycle short</h4>
+<p>Most scripting languages are toys in the hands of a (game) programmer. Writing anything serious with them implies, that many aspects of the engine need to be exposed to the scripting language. This in turn means that in order to be efficient, C++ semantics need to be somehow matched with the scripting language semantics. This turns ugly really fast. How to transfer pointer semantics, RAII, copy and move semantics, virtual inheritance and all this stuff to the garbage collected scripting language? Possibly by a lot of meaningless glue code and hacking in the script engine.</p>
+<p>Note to self: Use dynamic libraries to reload C++ code on the fly.</p>
+<h4>Don't worry about memory, <code>std::*</code> will take decent care of it</h4>
+<p>My careless using of <code>std::containers</code> has turned a major headache. Having over a million allocations per second taking over half of the frame time on Windows is a thing that could've been easily prevented.</p>
+<p>Note to self: Preallocate everything, or at least design algorithms to use singly allocated <code>std::vectors</code> instead of e.g. <code>std::map</code> in a loop.</p>
+<h4>Use a build system</h4>
+<p>All general purpose build systems have features which get on the way of what you want to achieve, and don't have the features you'll need down the road. Searching for workarounds and trying to optimize poor performance isn't worth the initial saved time. Also, using complex and cryptic systems like CMake will make other people frustrated with your open source project when things don't build as they should.</p>
+<p>Note to self: Use a simple script to build small projects. Write a <a href="https://github.com/crafn/clbs">custom tool</a> having a minimal feature set to build larger projects. It's easier than you might initially think, and beating make in usability and performance is trivial. There will be bugs, but at least they can be fixed easily.</p></div>
+<div id="copyright">&copy; Tuukka Pensala 2014-2016</div>
+
+<div id="twitter-follow">
+<a href="https://twitter.com/crafn" class="twitter-follow-button" data-show-count="false">Follow @crafn</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+
+</body>
+</html>

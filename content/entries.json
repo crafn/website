@@ -1,63 +1,63 @@
-g_entries= [
+[
 	{
-		"date": [2016, 15, 1],
+		"date": [2016, 16, 1],
 		"file": "new_engine.md",
-		"tags": [ "all", "clover", "code" ]
+		"tags": [ "index", "clover", "code" ]
 	},
 	{
 		"date": [2015, 9, 28],
 		"file": "baccalaureate.md",
-		"tags": [ "all", "physics", "code" ]
+		"tags": [ "index", "physics", "code" ]
 	},
 	{
 		"date": [2015, 1, 10],
 		"file": "pain_in_game_development.md",
-		"tags": [ "all", "clover", "code" ]
+		"tags": [ "index", "clover", "code" ]
 	},
 	{
 		"date": [2014, 12, 21],
 		"file": "clover_engine_mistakes.md",
-		"tags": [ "all", "clover", "code" ]
+		"tags": [ "index", "clover", "code" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "clover_engine_open_sourced.md",
-		"tags": [ "all", "clover" ]
+		"tags": [ "index", "clover" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "project_clover.md",
-		"tags": [ "all", "games", "code", "clover" ]
+		"tags": [ "index", "games", "code", "clover" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "clover_misc_art.md",
-		"tags": [ "all", "clover", "art" ]
+		"tags": [ "index", "clover", "art" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "splot.md",
-		"tags": [ "all", "games", "code" ]
+		"tags": [ "index", "games", "code" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "jazz2_levels.md",
-		"tags": [ "all", "games" ]
+		"tags": [ "index", "games" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "14_assembly_entry.md",
-		"tags": [ "all", "music" ]
+		"tags": [ "index", "music" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "11_assembly_entry.md",
-		"tags": [ "all", "music" ]
+		"tags": [ "index", "music" ]
 	},
 	{
 		"date": [2014, 11, 12],
 		"file": "orchestral_experiment.md",
-		"tags": [ "all", "music" ]
+		"tags": [ "index", "music" ]
 	},
 	{
 		"date": [2014, 11, 12],

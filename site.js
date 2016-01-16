@@ -1,4 +1,4 @@
-// This is mostly obsolete. Ajax stuff is replaced by generating static site. Only image zooming is done with js now.
+// A lot of this stuff is obsolete. Changed to generating static sites instead of ajax abomination.
 
 var getQueryVar= function(name)
 {
@@ -54,14 +54,13 @@ var g_default_tag= "all";
 
 var changeContent= function(path, code, make_history)
 {
-	/*
 	g_path= path;
-
 
 	$("#content").hide();
 	$("#content").html(code);
 	$("#content").fadeIn();
 
+	/*
 	var page_title= "crafn.kapsi.fi";
 	var heading_code= pathLink([g_default_tag], "crafn.kapsi.fi//");
 	for (var i= 0; i < g_path.length; ++i) {
@@ -81,6 +80,17 @@ var changeContent= function(path, code, make_history)
 	}
 	*/
 
+	// Image functionality
+	var imgs= document.querySelectorAll('img');
+	var img_id= 0;
+	$("#content img").each(function()
+	{
+		var $img= $(this);
+		$img.tabIndex= 10000;
+		$img.attr("id", "image_" + img_id);
+		$img.attr("onMouseDown", "onMouseDown_thumb(event," + img_id + ");");
+		++img_id;
+	});
 };
 
 var onMouseDown_html= function(e)
@@ -116,8 +126,6 @@ var selectEntry= function(title)
 
 var gotoPath= function(path, make_history)
 {
-
-		/*
 	if (path.length >= 2) { // Show entry
 		var title= path[1];
 		var entry= g_entriesByTitle[title];
@@ -129,6 +137,7 @@ var gotoPath= function(path, make_history)
 				make_history);
 		});
 	} else if (path.length == 1) { // Show entries matching to tags
+		/*
 		var tag= path[0];
 		var entries= [];
 		var entry_ids= [];
@@ -170,8 +179,8 @@ var gotoPath= function(path, make_history)
 			code += "</a>";
 		}
 		changeContent(path, code, make_history);
+		*/
 	}
-	*/
 };
 
 var onSiteLoad= function()
@@ -242,17 +251,5 @@ var onSiteLoad= function()
 
 	$('html').mousedown(function()
 	{ onMouseDown_html(); });
-
-	// Image functionality
-	var imgs= document.querySelectorAll('img');
-	var img_id= 0;
-	$("#content img").each(function()
-	{
-		var $img= $(this);
-		$img.tabIndex= 10000;
-		$img.attr("id", "image_" + img_id);
-		$img.attr("onMouseDown", "onMouseDown_thumb(event," + img_id + ");");
-		++img_id;
-	});
 };
 window.onload= onSiteLoad;

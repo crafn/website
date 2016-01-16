@@ -1,0 +1,233 @@
+body {
+	background-color: black;
+	background-image: url("grad.png");
+	background-size: 100% 64px;
+	background-repeat: repeat-y;
+	margin: 0;
+	padding: 0;
+	overflow-y: scroll;
+}
+
+#header {
+	font-family: "Open Sans Condensed";
+	font-size: 20px;
+	color: #927F81;
+	text-shadow: 0.0em 0.0em 0.4em #373737;
+	z-index: 0;
+
+	padding-left: 8px;
+}
+#header a {
+	color: inherit;
+	text-decoration: none;
+	outline: none;
+}
+#header a:hover {
+	color: white;
+}
+
+#content {
+	text-align: justify;
+	z-index: 1;
+
+	width: 600px !important;
+	position: relative;
+	float: right;
+	right: 52%;
+	top: 50px;
+	margin-right: -355px;
+	padding-bottom: 50px;
+}
+#content p, li {
+	font-family: "Lora";
+	font-size: 16px;
+	line-height: 20px;
+	margin-top: 6px;
+	margin-left: 10px;
+	color: #B0A78A;
+}
+#content p {
+	margin-bottom: 15px;
+}
+#content li {
+	margin-bottom: 5px;
+}
+#content pre, code {
+	font-family: monospace, monospace;
+	font-size: 13px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: #DD7722;
+	background-color: #171717;
+	border: none;
+	border-radius: 2px;
+	line-height: 150%;
+	text-decoration: none;
+}
+#content pre {
+	margin-left: 40px;
+}
+#content a:link {
+	text-decoration: none;
+	color: #994444;
+}
+#content a:visited {
+	color: #774466;
+}
+#content a:hover {
+	text-decoration: underline;
+	color: #FFFFFF;
+}
+
+#content h3 {
+	font-family: "Open Sans Condensed";
+	font-size: 26px;
+	font-weight: 300;
+	letter-spacing: 1px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	color: #FFC99A;
+	text-shadow: 0.0em 0.0em 0.4em #474747;
+}
+#content h4 {
+	font-family: "Open Sans Condensed";
+	font-size: 20px;
+	font-weight: 300;
+	letter-spacing: 0.07em;
+	margin-bottom: 10px;
+	margin-top: 35px;
+	color: #FFC99A;
+}
+#content h5 {
+	font-family: "Open Sans Condensed";
+	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 0.07em;
+	margin-bottom: 7px;
+	margin-top: 30px;
+	color: #FFC99A;
+}
+#content .preview h3 {
+	font-size: 14px;
+	text-decoration: none !important;
+	margin-top: 0px;
+	padding-left: 20px;
+}
+#content .preview h4 {
+	display: none;
+}
+#content .preview img {
+	display: none;
+}
+#content .preview p {
+	color: #B0A78A;
+	font-style: italic;
+	margin-top: 8px;
+	margin-left: 10px;
+	padding-left: 8px;
+	border-left: 1px solid #443333;
+}
+#content .blocklink {
+	color: inherit;
+	text-decoration: inherit;
+	outline: none;
+	display: inline-block;
+	width: inherit;
+
+	/* Needed for .date */
+	position: relative;
+}
+#content .blocklink h3 {
+	margin-bottom: 0px !important;
+}
+#content .blocklink:hover h3 {
+	text-decoration: underline;
+}
+#content .date {
+	font-family: "Open Sans Condensed";
+	font-size: 14px;
+	color: #927F81;
+
+	position: absolute;
+	top: 58px;
+	right: 0px;
+}
+#content .magnify {
+	transform: scale(4);
+}
+#content img {
+	cursor: pointer;
+	width: 180px;
+	transition: 0.1s ease;
+	margin: 5px;
+}
+#content img[alt=left] {
+	float: left;
+	margin-right: 20px;
+}
+#content img[alt=right] {
+	float: right;
+	margin-left: 20px;
+}
+/* SoundCloud embed */
+#content iframe {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#nav {
+	font-family: "Cinzel Decorative";
+	font-size: 14px;
+	letter-spacing: 0.15em;
+	text-align: right;
+	text-shadow: 0.0em 0.0em 0.4em #474747;
+	border-right: 1px solid #334433;
+	line-height: 30px;
+	z-index: 0;
+
+	width: 100px;
+	padding-right: 20px;
+	margin-left: -400px;
+	position: relative;
+	float: left;
+	left: 48%;
+	top: 130px;
+}
+#nav a {
+	color: #8CAE6C;
+	text-decoration: none;
+	outline: none;
+}
+#nav a:hover {
+	color: white;
+	text-shadow: 0.0em 0.0em 0.4em #888888;
+}
+
+#copyright {
+	font-family: "Open Sans Condensed";
+	font-size: 12px;
+	color: rgb(100, 100, 100);
+	z-index: 0;
+
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	padding-bottom: 2px;
+	padding-right: 4px;
+}
+
+#twitter-follow {
+	position: absolute;
+	padding-top: 7px;
+	padding-right: 7px;
+	top: 0px;
+	right: 0px;
+}
+
+#twitter-share {
+	padding-top: 20px;
+	width: 70px;
+	float: right;
+}

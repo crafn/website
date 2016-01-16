@@ -140,7 +140,7 @@ As a general note, I don't find C inducing more hard-to-find crashes than C++, w
 It should be clear now, that I want full control on handling the memory. To be fair, I don't know enough about specifics of modern processors. I know some useful heuristics originating from DoD, and understand on some level why they work. Based on that, I'd like a handful of different allocation schemes:
 
 - Linear allocation for temporary calculation/storage space. I want to have one of these cleared at the end of every frame, so I can allocate temp memory without worrying allocation overhead. Very useful for cheap temporary strings. This is like no-overhead RAII.
-- Block/pool allocation for contiguous storage of homogeneous data. Sometimes just an array/vector suffices, but becomes inconvenient if I want to have persistent handles to items without indirection.
+- Pool allocation for contiguous storage of homogeneous data. Sometimes just an array/vector suffices, but becomes inconvenient if I want to have persistent handles to items without indirection. This is more like a container in C, while in C++ I used this as an afterthought per-class optimization.
 - Per-thread custom heaps operating in preallocated space. These get rid of the mutex and kernel calling `malloc` has, and can be tweaked further to perform better than any generic heap allocation algorithm.
 
 What I usually do with C to get a custom allocation scheme is to write two functions, alloc and free. In this project I have gone a bit further, and have an allocator info struct for containers to store. These "allocators" work like this:
@@ -158,14 +158,14 @@ What I usually do with C to get a custom allocation scheme is to write two funct
 	// Give a "slice" or "view" to someone.
 	view_only(arr.data, arr.size);
 
+
 I have the handy `frame_ator()` for which the allocation is just a pointer increment. I also have `dev_ator()`, which forwards to `malloc`, but is allowed during gameplay. I make use of `realloc`. I've heard there are some nifty techniques relying on separately reserving and committing memory, but I haven't yet got around those things.
 
 I also have to make my own allocators in C++. I don't remember the C++ allocator machinery very well. I've written a few allocators in C++11, and it's a chore. Here's the [mallocator](http://blogs.msdn.com/b/vcblog/archive/2008/08/28/the-mallocator.aspx). That's the simplest thing I'll ever see.
 
-C++ allocators are specified in the container type, not in data. This means I can't give my `std::vector<int, custom_allocator>&` to a function which accepts `std::vector<int>&`. To support different allocators I have to make it a function template. Now the internals of the function have to be exposed in the header, so I need to move `#includes` from .cpp to the .hpp. Catastrophic for compile times. A way to avoid this is to create my own Slice<T> for read-only arrays. Now I have one template class more. Maybe I should've just used a raw pointer and a size. For functions which need to modify the container I can keep the definition in the .cpp but instantiate them manually for different combinations of T and A. This hack works, but means more manual work.
+C++ allocators are specified in the container type, not in data. This means I can't give my `std::vector<int, custom_allocator>&` to a function which accepts `std::vector<int>&`. To support different allocators I have to make it a function template. Now the internals of the function have to be exposed in the header, so I need to move `#includes` from .cpp to the .hpp. Catastrophic for compile times. A way to avoid this is to create my own `Slice<T>` for read-only arrays. Now I have one template class more. Maybe I should've just used a raw pointer and a size. For functions which need to modify the container I can keep the definition in the .cpp but instantiate them manually for different combinations of T and A. This hack works, but means more manual work.
 
 With C I have to write at max two functions per allocator, plus a single struct to hold information which allocation method a container instance uses. With C++ I'm easily writing a dozen of class templates and using workarounds to keep my compilation times reasonable. Managing memory is one of the most elementary things there are. C keeps it elementary, C++ doesn't.
-
 
 #### Reinventing the bumpy weel
 Using C prevents me from using a lot of 3rd party code, like most frameworks and the C++ standard library. Shouldn't using premade solutions prevent a lot of frustration and save mental power?
@@ -249,7 +249,7 @@ Operator overloading is convenient with maths. It makes finding a function point
 Argument overloading shares the same name mangling problems. It would be convenient to have in some situations. Name lookup, template argument deduction, overload resolution, access control, virtual functions and shadowing rules are overly complex in C++ though. Just watch STL (the guy) spending [eight hours in his Core C++ series](https://youtu.be/3Yg3QnGXxHM) explaining how all that machinery works. After that it doesn't feel so bad that C forces me to be explicit, although it's occasionally inconvenient.
 
 `auto`-keyword is handy if I have long type names, like `std::vector<foo::bar,`
-`core::some_allocator>::iterator`, or generic code. However, too generous use of it will make the code hard to read, because now I have to figure out myself what the return types functions are. I haven't been missing it, because I don't have overly verbose type names, because I don't have to worry about name collisions. My dynamic array is just `Array(Type)`, and iteration works through `Type*` or `U32` regardless of the allocator used. The little amount of generic code is dead simple. I understand the need for `auto` in C++ though.
+`core::some_allocator>::iterator`, or generic code. However, too generous use of it will make the code hard to read, because now I have to figure out myself what the return types of functions are. I haven't been missing it, because I don't have overly verbose type names, because I don't have to worry about name collisions. My dynamic array is just `Array(Type)`, and iteration works through `Type*` or `U32` regardless of the allocator used. The little amount of generic code is dead simple. I understand the need for `auto` in C++ though.
 
 C++ also has some features which are required to make the system self-consistent, but are more or less useless outside of it, like reference semantics, and copy and move semantics.
 
