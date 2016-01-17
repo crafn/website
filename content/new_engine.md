@@ -295,3 +295,24 @@ I'll now list separately how C, C++, and C/C++ make fitting my ideals hard. Crit
 - I'll have to pick the rest of my poison from both C and C++.
 
 And so I chose C. I'm still in the figuring-out stage, but after 25kloc I haven't yet regretted. In fact, I've found ways to eliminate most of the headaches I had with C++, while introducing only few new ones. I've found more simplicity, efficiency, and elegancy in the separation of data and operations than I could've believed. 
+
+#### EDIT: Clarification
+The text seems to make it easy to think that my progression went like:
+
+1. be newbie with C++
+2. fail with it
+3. "Boo! C++ is bad! C is better!"
+
+, but it's more subtle. It really went like this:
+
+1. be newbie with C++
+2. fail with it
+3. start gaining experience and knowledge
+4. rewrite multiple parts of the C++ engine multiple times, over multiple years
+5. understand and applaud for the solutions and thinking shown by experts like Herb Sutter and Scott Meyers
+6. realize that I shouldn't be using some parts of C++ (exceptions, stdlib)
+7. start to ponder if I really need even the good parts of C++
+8. my codebase is bloated from the newbie times and compiles so slow that I don't get anything done
+9. a jump to the unknown
+10. Realize that most of the delicate thinking and solutions of C++ experts are just not needed when programming in C. Be positively surprised with C, even though it still leaves a lot to be desired.
+
