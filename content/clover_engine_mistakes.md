@@ -29,6 +29,7 @@ Note to self: Don't throw; keep the program flow simple and debugging easy.
 The case often is that you have to create a new type which needs to have means of initialization and destruction.
 
 How I approached this using objects:
+
 1. Design a class which could encapsulate the required properties, following the Single Responsibility Principle and all that good stuff.
 2. Write a constructor and destructor doing all the important work.
 3. Write required accessors.
@@ -42,6 +43,7 @@ How I approached this using objects:
 11. Debug odd behavior due to forgotten update of copy or move -functions.
 
 How I would approach this now:
+
 1. Write a struct containing the required data.
 2. Write create and destroy functions for the struct.
 3. Call these at the two places where the new functionality is needed.
@@ -54,6 +56,7 @@ Note to self: Use RAII only for widely used utility classes.
 I'm still quite proud of the script registration system I managed to pull together. Too bad that C++ template implementation totally ruined it.
 
 It works so that you can pass arbitrary (member)function pointer, or type to a script manager, and it uses template magic to figure out all the properties of the passed thing and forms a proper registration call to AngelScript. There's a few minor problems though which I didn't come to think about beforehand:
+
 1. Generating thousands and thousands of template instantiations takes so much memory that workarounds must be used to keep 32bit MinGW from crashing and 8gb of ram being filled on my 64bit Linux laptop when building with `-j8`.
 2. Symbol table gets so bloated that 32bit linker will fail on debug builds.
 3. Compile times get slower by minutes. Slow compile times destroy programmer motivation.

@@ -36,32 +36,38 @@
 <p>Note to self: Don't throw; keep the program flow simple and debugging easy.</p>
 <h4>RAII is the way to handle initialization and destruction</h4>
 <p>The case often is that you have to create a new type which needs to have means of initialization and destruction.</p>
-<p>How I approached this using objects:
-1. Design a class which could encapsulate the required properties, following the Single Responsibility Principle and all that good stuff.
-2. Write a constructor and destructor doing all the important work.
-3. Write required accessors.
-4. These will be put into <code>std::vector</code> so write a move ctor, and a move assignment operator too.
-5. If copying is needed, just copy-paste move-funcs and remove <code>std::moves</code>.
-6. Realize that the move-constructor should be <code>noexcept</code> so that <code>std::containers</code> can use it to full extent(?) (jk, I rarely bother or remember to do this).
-7. Worry about the stuff inside move-functions if they really throw or not.
-8. Feel uneasy because didn't put enough thought to the <code>noexcept</code> specification, copy-and-swap idiom or something else.
-9. Later realize that a new member is needed. Update class definition, add required accessors and update copy and move funcs.
-10. Bonus: the new member doesn't support copy and/or move because I was lazy when I wrote that class.
-11. Debug odd behavior due to forgotten update of copy or move -functions.</p>
-<p>How I would approach this now:
-1. Write a struct containing the required data.
-2. Write create and destroy functions for the struct.
-3. Call these at the two places where the new functionality is needed.
-4. Later realize that a new member is needed, and then add it.</p>
+<p>How I approached this using objects:</p>
+<ol>
+<li>Design a class which could encapsulate the required properties, following the Single Responsibility Principle and all that good stuff.</li>
+<li>Write a constructor and destructor doing all the important work.</li>
+<li>Write required accessors.</li>
+<li>These will be put into <code>std::vector</code> so write a move ctor, and a move assignment operator too.</li>
+<li>If copying is needed, just copy-paste move-funcs and remove <code>std::moves</code>.</li>
+<li>Realize that the move-constructor should be <code>noexcept</code> so that <code>std::containers</code> can use it to full extent(?) (jk, I rarely bother or remember to do this).</li>
+<li>Worry about the stuff inside move-functions if they really throw or not.</li>
+<li>Feel uneasy because didn't put enough thought to the <code>noexcept</code> specification, copy-and-swap idiom or something else.</li>
+<li>Later realize that a new member is needed. Update class definition, add required accessors and update copy and move funcs.</li>
+<li>Bonus: the new member doesn't support copy and/or move because I was lazy when I wrote that class.</li>
+<li>Debug odd behavior due to forgotten update of copy or move -functions.</li>
+</ol>
+<p>How I would approach this now:</p>
+<ol>
+<li>Write a struct containing the required data.</li>
+<li>Write create and destroy functions for the struct.</li>
+<li>Call these at the two places where the new functionality is needed.</li>
+<li>Later realize that a new member is needed, and then add it.</li>
+</ol>
 <p>Note to self: Use RAII only for widely used utility classes.</p>
 <h4>Template metaprogramming saves programmer time</h4>
 <p>I'm still quite proud of the script registration system I managed to pull together. Too bad that C++ template implementation totally ruined it.</p>
-<p>It works so that you can pass arbitrary (member)function pointer, or type to a script manager, and it uses template magic to figure out all the properties of the passed thing and forms a proper registration call to AngelScript. There's a few minor problems though which I didn't come to think about beforehand:
-1. Generating thousands and thousands of template instantiations takes so much memory that workarounds must be used to keep 32bit MinGW from crashing and 8gb of ram being filled on my 64bit Linux laptop when building with <code>-j8</code>.
-2. Symbol table gets so bloated that 32bit linker will fail on debug builds.
-3. Compile times get slower by minutes. Slow compile times destroy programmer motivation.
-4. Fixing bugs in the script manager is annoying because generated template errors are so long that I've had to double the buffer size of bash multiple times.
-5. Fixing bugs in the script manager is hopeless because recompilation takes multiple minutes.</p>
+<p>It works so that you can pass arbitrary (member)function pointer, or type to a script manager, and it uses template magic to figure out all the properties of the passed thing and forms a proper registration call to AngelScript. There's a few minor problems though which I didn't come to think about beforehand:</p>
+<ol>
+<li>Generating thousands and thousands of template instantiations takes so much memory that workarounds must be used to keep 32bit MinGW from crashing and 8gb of ram being filled on my 64bit Linux laptop when building with <code>-j8</code>.</li>
+<li>Symbol table gets so bloated that 32bit linker will fail on debug builds.</li>
+<li>Compile times get slower by minutes. Slow compile times destroy programmer motivation.</li>
+<li>Fixing bugs in the script manager is annoying because generated template errors are so long that I've had to double the buffer size of bash multiple times.</li>
+<li>Fixing bugs in the script manager is hopeless because recompilation takes multiple minutes.</li>
+</ol>
 <p>Note to self: Use templates only to parameterize over types, if really necessary. Generate glue code with some external tool if e.g. a scripting language must be used.</p>
 <h4>Use e.g. Boost instead of rolling your own</h4>
 <p>Boost is one of the most unportable libraries I've ever used. I've wasted countless hours trying to find a MinGW build which could compile Boost without errors. Every time I wanted to use a new and cool C++11 feature and updated my compiler, I could be sure that Boost wouldn't compile anymore on Windows. MinGW might also be to blame, but every other library has been working quite fine. Fortunately <code>std::thread</code> and friends are now somewhat usable on MinGW so parts of Boost can be removed from the build, which is better than nothing.</p>

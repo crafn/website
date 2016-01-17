@@ -31,6 +31,7 @@ The bug can be substituted by a design issue or a hard-to-quantify artistic subt
 ##### Runtime recompiling
 
 So I have the four steps 2, 4, 5 and 6, which stem from the need of recompiling the executable. Most say that I should just use a scripting language. With a scripting language I also get:
+
 - to design how the semantics of the native language and/or the engine matches the scripting language
 - extra worrying for the GC and general performance
 - painful conversion back to static native code, if this turns out to be bad idea after I've written a dozen klocs of gameplay code
@@ -211,7 +212,7 @@ For the record, making good libraries is hard. Not sure if I can make one. Makin
 #### Maintainability
 Data-orientedness is not about scrambling some "ordinary" code to be optimal. It's about organizing your program using a different mindset. DoD is closer to hardware than OOP, but it doesn't outright lead to unmaintainable code. DoD doesn't necessarily mean more code.
 
-The 25kloc of my new engine implements over half the big features I had in the old 80kloc engine, and with significantly better performance. Most of the reduced code accounts for figuring out better solutions to problems. Experience has its role, but the C++ way of doing things would outright prevent some of the simple solutions in my new engine.
+The 25kloc of my new engine implements over half of the big features I had in the old 80kloc engine, and with significantly better performance. Most of the reduced code accounts for figuring out better solutions to problems. Experience has its role, but the C++ way of doing things would outright prevent some of the simple solutions in my new engine.
 
 I don't anymore believe OOP to be the pinnacle of maintainability. I believe that if you know how to write maintainable code, you can do it without the training wheels of OOP. You know that when you start to poke a variable from too many places, a better solution should be made up. You know intuitively how to maintain simplicity in your codebase, whether it's OOP, procedural, or functional. And you have the discipline.
 
@@ -242,7 +243,7 @@ Templates are another controversial topic. Huge compile and link times, but some
 	push_array(int)(&arr, 95);
 	debug_print("First element: %i, size: %i", arr.data[0], arr.size);
 
-I don't have template metaprogramming in C. I'm not sad, because the reflection mostly covers the legimiate use cases I had for it in C++, like the need for SFINAE and type inspection with partial specializations. I don't get expression templates to speed up matrix calculations, but that is again a local thing, meaning that I can generate the code needed for it later if necessary. With expression templates I spend a lot of time writing the template system and also pay in compile times.
+I don't have template metaprogramming in C. I'm not sad, because the reflection mostly covers the legitimate use cases I had for it in C++, like the need for SFINAE and type inspection with partial specializations. I don't get expression templates to speed up matrix calculations, but that is again a local thing, meaning that I can generate the code needed for it later if necessary. With expression templates I spend a lot of time writing the template system and also pay in compile times.
 
 Operator overloading is convenient with maths. It makes finding a function pointer at run-time hard though, so I don't wish C had it. Or maybe I wish, if it worked with function names like `Vec2f_plus_Vec2f` and not some mangled garbage. An ideal language would have both operator overloading and proper reflection.
 
@@ -293,4 +294,4 @@ I'll now list separately how C, C++, and C/C++ make fitting my ideals hard. Crit
 - I have to keep both C and C++ knowledge in my head.
 - I'll have to pick the rest of my poison from both C and C++.
 
-And so I chose C. I'm still in the figuring-out stage, but after 25kloc I haven't yet regretted. In fact, I've found ways to eliminate most of the headaches I had with C++, while introducing only few new ones. I've found simplicity, efficiency, and elegancy in the separation of data and operations. 
+And so I chose C. I'm still in the figuring-out stage, but after 25kloc I haven't yet regretted. In fact, I've found ways to eliminate most of the headaches I had with C++, while introducing only few new ones. I've found more simplicity, efficiency, and elegancy in the separation of data and operations than I could've believed. 
