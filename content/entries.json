@@ -1,5 +1,10 @@
 [
 	{
+		"date": [2017, 31, 8],
+		"file": "objective_ethics.md",
+		"tags": [ "index" ]
+	},
+	{
 		"date": [2016, 19, 3],
 		"file": "formal_ethics.md",
 		"tags": [ "index" ]

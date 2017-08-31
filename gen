@@ -12,9 +12,28 @@ def remove_link_tags(text):
 
 def tag_cmp(a, b):
     if a["count"] != b["count"]:
-	return a["count"] - b["count"]
+        return a["count"] - b["count"]
     return (a["name"] > b["name"]) - (b["name"] > a["name"])
 
+def cmp_to_key(mycmp):
+    'Convert a cmp= function into a key= function'
+    class K:
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+    return K
+	
 entries = {}
 with open("./content/entries.json") as entries_file:
     entries = json.load(entries_file)
@@ -32,7 +51,7 @@ for key in tag_counts:
     if key in tag_counts:
         sortable_tags.append({"count": tag_counts[key], "name": key});
 
-sortable_tags = sorted(sortable_tags, cmp = tag_cmp, reverse = True)
+sortable_tags = sorted(sortable_tags, key = cmp_to_key(tag_cmp), reverse = True)
 
 tags = []
 for tag in sortable_tags:
