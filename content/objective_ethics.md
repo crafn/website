@@ -6,3 +6,8 @@ We show that among all internally consistent value structures, a unique structur
 [pdf](/data/objective_ethics_latest.pdf)
 
 Corrections and rebuttals are welcome. If the proof is correct, then the ancient problem of non-subjective ethics has been solved.
+
+
+
+Old versions:
+[1.00 - pdf](/data/objective_ethics_v100.pdf)
